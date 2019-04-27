@@ -6,7 +6,7 @@ class Fabrica extends Component {
 
     render() {
       let celdas = [];
-      for(var i=0;i < 49;i++){
+      for(var i=0;i <110 ;i++){
         celdas.push(i);
       }
       return (
