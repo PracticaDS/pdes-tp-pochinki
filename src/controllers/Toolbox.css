@@ -1,0 +1,13 @@
+.toolbox{
+    border: 1px solid slateblue;
+    border-radius: 4px;
+    background-color: darkblue;
+    height: 500px;
+    width: 140px;
+}
+
+.title{
+    color: orange;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
