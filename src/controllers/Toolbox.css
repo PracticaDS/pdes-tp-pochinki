@@ -2,9 +2,11 @@
     border: 1px solid slateblue;
     border-radius: 4px;
     background-color: darkblue;
-    height: 600px;
+    height: 600px !important;
     width: 140px;
     display: inline-block;
+    margin-left: 30px;
+    float: left;
 }
 
 .title{

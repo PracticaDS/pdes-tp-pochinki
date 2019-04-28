@@ -3,7 +3,7 @@ import "./Tablero.css";
 
 const Tablero = () => {
     let celdas = [];
-    for(var i=0;i <110 ;i++){
+    for(var i=0;i <100 ;i++){
       celdas.push(i);
     };
     return (

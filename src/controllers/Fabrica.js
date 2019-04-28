@@ -8,9 +8,10 @@ class Fabrica extends Component {
 
     render() {
       return (
-        <div style={{width: '100%'}}>
-          <Toolbox></Toolbox>
+        <div className="fabricaElements">
+          <div className="espacioProvisorio"></div>
           <Tablero></Tablero>
+          <Toolbox></Toolbox>
         </div>
       );
     }

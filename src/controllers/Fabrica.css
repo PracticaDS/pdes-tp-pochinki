@@ -1,0 +1,11 @@
+.fabricaElements {
+    width: 100%;
+    margin-top: 5%;
+}
+
+.espacioProvisorio{
+    width: 30%; 
+    display: inline-block;
+    float: left;
+    height: 600px;
+}
