@@ -4,8 +4,9 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import PanelDatelles from '../controllers/PanelDetalles';
+import PanelDetalles from '../controllers/PanelDetalles';
 import { Button, Welcome } from '@storybook/react/demo';
+import Toolbox from '../controllers/Toolbox';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -21,5 +22,13 @@ storiesOf('Button', module)
 
   storiesOf('Panel Detalles',module)
     .add('default',() => (
-      <PanelDatelles></PanelDatelles>
+      <PanelDetalles></PanelDetalles>
     ));
+
+storiesOf('Toolbox',module)
+  .add('default',() => (
+    <Toolbox></Toolbox>
+  ));
+
+  require('../controllers/Toolbox');
+  require('../controllers/PanelDetalles');

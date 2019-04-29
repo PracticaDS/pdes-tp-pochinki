@@ -1,20 +1,17 @@
 import React, {Component} from 'react';
 import "./Fabrica.css";
+import Tablero from './Tablero';
+import Toolbox from './Toolbox';
 
 class Fabrica extends Component {
     
 
     render() {
-      let celdas = [];
-      for(var i=0;i <110 ;i++){
-        celdas.push(i);
-      }
       return (
-        <div className="tablero">
-                  { celdas.map(function(item) {
-                return <div key={item} className="celda"></div>
-            })
-        }
+        <div className="fabricaElements">
+          <div className="espacioProvisorio"></div>
+          <Tablero></Tablero>
+          <Toolbox></Toolbox>
         </div>
       );
     }
