@@ -8,6 +8,7 @@ const Toolbox = () => {
         <div className='toolbox'>
             <h3 className='title'>Maquinas</h3>
             <SeleccionMaquinas></SeleccionMaquinas>
+            <h3 className='title'>Edicion</h3>
             <PanelEdicion></PanelEdicion>
         </div>
     );
