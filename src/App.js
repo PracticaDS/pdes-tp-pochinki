@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Fabrica from './controllers/Fabrica';
+import Fabrica from './components/Fabrica';
+import SeleccionMaquinasContainer from './containers/SeleccionMaquinasContainer';
 
-class App extends Component {
-  render() {
+const App = () => {
     return (
       <div className="App">
         <div className="tab">
@@ -14,6 +14,6 @@ class App extends Component {
       </div>
     );
   }
-}
+
 
 export default App;
