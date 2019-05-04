@@ -5,9 +5,11 @@ import App from './App';
 import storeCreator from './storeCreator';
 import { Provider } from 'react-redux';
 import { selectMaquina } from './actions/maquina';
+import {start} from './actions/start';
 
 const store = storeCreator();
 store.dispatch(selectMaquina("CRAFTER"));
+store.dispatch(start());
 
 
 render(
