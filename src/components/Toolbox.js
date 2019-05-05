@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import './Toolbox.css';
 import SeleccionMaquinas from '../containers/SeleccionMaquinasContainer';
 import PanelEdicion from './PanelEdicion';

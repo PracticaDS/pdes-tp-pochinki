@@ -8,7 +8,7 @@ const selectMaquina = (state,tipoMaquina) => {
 const colocarMaquina = (state,idCelda) => {
     let fila = idCelda / 10;
     let columna = idCelda % 10;
-    if(state.maquinaSeleccionada == "NO" || state.tablero.some((value,index,array)=> {return value.x == columna && value.y == fila})){
+    if(state.maquinaSeleccionada === "NO" || state.tablero.some((value,index,array)=> {return value.x === columna && value.y === fila})){
         return  state;
     }
     else{

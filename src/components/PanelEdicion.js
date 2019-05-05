@@ -7,9 +7,9 @@ import "./PanelEdicion.css"
 const PanelEdicion = () => {
     return (
     <div className="panelEdicion">
-        <img src={eliminar} className="botonEdicion" />
-        <img src={mover} className="botonEdicion" />
-        <img src={rotar} className="botonEdicion" />
+        <img src={eliminar} alt="eliminarButton" className="botonEdicion" />
+        <img src={mover} alt="moverButton" className="botonEdicion" />
+        <img src={rotar} alt="rotarButton" className="botonEdicion" />
     </div> )
 }
 

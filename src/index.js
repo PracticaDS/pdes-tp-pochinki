@@ -2,7 +2,6 @@ import React from 'react';
 import {render} from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 import storeCreator from './storeCreator';
 import { Provider } from 'react-redux';
 import { selectMaquina } from './actions/maquina';

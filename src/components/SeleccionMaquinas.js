@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
 
 const SeleccionMaquinas = ({maquinaSeleccionada,onMaquinaClick}) => (
         <div className="panelSeleccion">
-            <img src={crafter} className="botonMaquina" onClick={() => onMaquinaClick("CRAFTER")}/>
-            <img src={furnace} className="botonMaquina" onClick={() =>onMaquinaClick("FURNACE")}/>
-            <img src={seller} className="botonMaquina" onClick={() =>onMaquinaClick("SELLER")}/>
-            <img src={starter} className="botonMaquina" onClick={() =>onMaquinaClick("STARTER")}/>
-            <img src={transporter} className="botonMaquina"onClick={() =>onMaquinaClick("TRANSPORTER")} />
+            <img src={crafter} alt="crafterBot" className="botonMaquina" onClick={() => onMaquinaClick("CRAFTER")}/>
+            <img src={furnace} alt="furnaceBot" className="botonMaquina" onClick={() =>onMaquinaClick("FURNACE")}/>
+            <img src={seller} alt="sellerBot" className="botonMaquina" onClick={() =>onMaquinaClick("SELLER")}/>
+            <img src={starter} alt="starterBot" className="botonMaquina" onClick={() =>onMaquinaClick("STARTER")}/>
+            <img src={transporter} alt="transporterBot" className="botonMaquina"onClick={() =>onMaquinaClick("TRANSPORTER")} />
 
         </div>
     );

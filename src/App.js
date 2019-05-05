@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import Fabrica from './components/Fabrica';
-import SeleccionMaquinasContainer from './containers/SeleccionMaquinasContainer';
 
 const App = () => {
     return (

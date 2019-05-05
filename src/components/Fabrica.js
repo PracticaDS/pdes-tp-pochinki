@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import "./Fabrica.css";
 import Tablero from '../containers/TableroContainer';
 import Toolbox from './Toolbox';
