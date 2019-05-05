@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import "./Fabrica.css";
-import Tablero from './Tablero';
+import Tablero from '../containers/TableroContainer';
 import Toolbox from './Toolbox';
+import PanelDetalles from '../containers/PanelDetallesContainer';
 
 const Fabrica = () => {
     
     return (
       <div className="fabricaElements">
-        <div className="espacioProvisorio"></div>
+        <PanelDetalles></PanelDetalles>
         <Tablero></Tablero>
         <Toolbox></Toolbox>        
       </div>

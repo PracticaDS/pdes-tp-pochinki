@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 
 const SeleccionMaquinas = ({maquinaSeleccionada,onMaquinaClick}) => (
         <div className="panelSeleccion">
-            <a href="#" > {maquinaSeleccionada}</a>
             <img src={crafter} className="botonMaquina" onClick={() => onMaquinaClick("CRAFTER")}/>
             <img src={furnace} className="botonMaquina" onClick={() =>onMaquinaClick("FURNACE")}/>
             <img src={seller} className="botonMaquina" onClick={() =>onMaquinaClick("SELLER")}/>

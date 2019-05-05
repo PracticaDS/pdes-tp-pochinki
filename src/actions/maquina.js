@@ -5,3 +5,10 @@ export const selectMaquina = (tipoMaquina) => {
         tipoMaquina
     }
 }
+export const colocarMaquina = (idCelda) => {
+    console.log(idCelda);
+    return {
+        type: 'PUT',
+        idCelda
+    }
+}

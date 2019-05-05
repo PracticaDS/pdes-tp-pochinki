@@ -4,8 +4,9 @@ import {selectMaquina} from '../actions/maquina';
 import SeleccionMaquinas from '../components/SeleccionMaquinas';
 
 const mapStateToProps = (state) => (
+      
      {
-        maquinaSeleccionada : state.maquinas
+        maquinaSeleccionada : state.maquinas.maquinaSeleccionada
     }
 );
 
