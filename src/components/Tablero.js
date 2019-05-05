@@ -7,21 +7,22 @@ import transporter from '../assets/transporter.png';
 import furnace from '../assets/furnace.png';
 
 const renderMaquina = (maquinas,idCelda) => {
-    let fila = idCelda / 10;
-    let columna = idCelda % 10;
+    let fila = Math.round(idCelda / 10);
+    let columna = Math.round(idCelda % 10)+1;
     let maquina = maquinas.find((value,index,array)=> {return (value.x === columna) && (value.y === fila)});
     if(maquina != null){
+        //Se puede refactorear cada imagen a un componente que reciba orientacion e imagen por props
         switch (maquina.type){
             case "CRAFTER":
-                return <img src={crafter} alt="crafter" width='100%' height='100%'/>
+                return <img src={crafter} alt="crafter" width='100%' height='100%' className={maquina.orientacion}/>
             case "SELLER":
-                return <img src={seller} alt="seller" width='100%' height='100%'/>
+                return <img src={seller} alt="seller" width='100%' height='100%' className={maquina.orientacion}/>
             case "STARTER":
-                return <img src={starter} alt="starter" width='100%' height='100%'/>
+                return <img src={starter} alt="starter" width='100%' height='100%' className={maquina.orientacion}/>
             case "TRANSPORTER":
-                return <img src={transporter} alt="transporter" width='100%' height='100%'/>
+                return <img src={transporter} alt="transporter" width='100%' height='100%' className={maquina.orientacion}/>
             case "FURNACE":
-                return <img src={furnace} alt="furnace" width='100%' height='100%'/>
+                return <img src={furnace} alt="furnace" width='100%' height='100%' className={maquina.orientacion}/>
             default :
                 return null
         }

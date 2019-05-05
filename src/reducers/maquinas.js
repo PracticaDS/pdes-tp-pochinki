@@ -6,13 +6,13 @@ const selectMaquina = (state,tipoMaquina) => {
 };
 
 const colocarMaquina = (state,idCelda) => {
-    let fila = idCelda / 10;
-    let columna = idCelda % 10;
+    let fila = Math.round(idCelda / 10);
+    let columna = Math.round(idCelda % 10)+1;
     if(state.maquinaSeleccionada === "NO" || state.tablero.some((value,index,array)=> {return value.x === columna && value.y === fila})){
         return  state;
     }
     else{
-        state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila});
+        state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "derecha"});
         let newState = {tablero: state.tablero, maquinaSeleccionada: "NO"}
         console.log(newState);
         return newState;
