@@ -4,12 +4,12 @@ import mover from '../assets/mover.png'
 import rotar from '../assets/rotar.png'
 import "./PanelEdicion.css"
 
-const PanelEdicion = () => {
+const PanelEdicion = ({tablero,maquinaSeleccionada,herramienta,onHerramientaClick}) => {
     return (
     <div className="panelEdicion">
-        <img src={eliminar} alt="eliminarButton" className="botonEdicion" />
-        <img src={mover} alt="moverButton" className="botonEdicion" />
-        <img src={rotar} alt="rotarButton" className="botonEdicion" />
+        <img src={eliminar} alt="eliminarButton" onClick={() => onHerramientaClick("BORRAR")} className="botonEdicion" />
+        <img src={mover} alt="moverButton" onClick={() => onHerramientaClick("MOVER")} className="botonEdicion" />
+        <img src={rotar} alt="rotarButton" onClick={() => onHerramientaClick("ROTAR")} className="botonEdicion" />
     </div> )
 }
 
