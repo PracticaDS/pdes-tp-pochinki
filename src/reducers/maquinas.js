@@ -50,6 +50,7 @@ const edicion = (state, idCelda) => {
                         case "derecha":
                             newMaq.orientacion = "abajo";
                             break;
+                        default: break;
                     }
                     return newMaq;
                 }
