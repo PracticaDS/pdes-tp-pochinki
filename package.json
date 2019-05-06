@@ -1,6 +1,7 @@
 {
   "name": "tp-pdes",
   "version": "0.1.0",
+  "homepage": "https://PracticaDS.github.io/pdes-tp-pochinki/",
   "private": true,
   "dependencies": {
     "react": "^16.8.6",

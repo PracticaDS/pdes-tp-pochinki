@@ -19,3 +19,19 @@
     display: inline-block;
     float: left;
     }
+
+.abajo{
+
+}
+
+.derecha {
+    transform: rotate(270deg);
+}
+
+.izquierda{
+    transform: rotate(90deg)
+}
+
+.arriba {
+    transform: rotate(180deg)
+}
