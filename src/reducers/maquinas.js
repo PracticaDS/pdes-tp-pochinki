@@ -59,8 +59,29 @@ const edicion = (state, idCelda) => {
                 }
             })
             return {tablero: newTab,maquinaSeleccionada:"NO",herramienta: state.herramienta}
-        case "MOVER":
-            return state;
+        case "MOVER": //estoy eliminando y reemplazando habria que quizas guardar en el store la orientacion por ahora 
+            if(state.maquinaSeleccionada === "NO"){
+                let selectMaq = state.tablero.map( (maq) => {
+                    if(maq.x === columna && maq.y === fila){
+                        let selMaq = {type: maq.type, x: maq.x, y: maq.y, orientacion: maq.orientacion}
+                        return selMaq;
+                    }else{
+                        return maq;
+                    }
+                })
+                
+                let filterd = state.tablero.filter( (value,index,array) => {
+                    return (value.x !== columna && value.y !== fila)
+                })
+                let newState = {tablero: filterd, maquinaSeleccionada: selectMaq[0].type, herramienta: state.herramienta}
+                console.log('nuevo estado ', newState);
+              return newState;
+            }else {
+                return colocarMaquina(state, idCelda);
+            }    
+            
+            
+            
         case "SELECCIONAR":
             return state;
         default: return state;
