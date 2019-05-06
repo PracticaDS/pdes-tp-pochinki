@@ -1,11 +1,11 @@
 
 const selectMaquina = (state,tipoMaquina) => {
-    let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR"};
+    let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO"};
     return  newState;
 };
 
 const selectHerramienta = (state,herramienta) => {
-    let newState = {tablero: state.tablero,maquinaSeleccionada:"NO",herramienta:herramienta};
+    let newState = {tablero: state.tablero,maquinaSeleccionada:"NO",herramienta:herramienta, orientacionSeleccionada: "NO"};
     return  newState;
 }
 
@@ -16,10 +16,20 @@ const colocarMaquina = (state,idCelda) => {
         return  state;
     }
     else{
-        state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "derecha"});
-        let newState = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR"}
-        console.log(newState);
-        return newState;
+
+        switch(state.herramienta){
+            case "SELECCIONAR":
+                state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo"});
+                let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO"}
+                console.log(newStateS);
+                return newStateS; 
+            
+            case "MOVER":
+                state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: state.orientacionSeleccionada});
+                let newStateM = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"MOVER", orientacionSeleccionada: "abajo"}
+                console.log(newStateM);
+                return newStateM;
+        }      
     }
     
 };
@@ -32,7 +42,7 @@ const edicion = (state, idCelda) => {
             let filtered = state.tablero.filter((value,index,array)=> {
                 return (value.x !== columna && value.y !== fila)
             })
-            return {tablero:filtered,maquinaSeleccionada:"NO",herramienta:state.herramienta}
+            return {tablero:filtered,maquinaSeleccionada:"NO",herramienta:state.herramienta, orientacionSeleccionada: "NO"}
         case "ROTAR":
             let newTab = state.tablero.map((val)=> {
                 if(val.x === columna && val.y === fila){
@@ -58,7 +68,7 @@ const edicion = (state, idCelda) => {
                     return val;
                 }
             })
-            return {tablero: newTab,maquinaSeleccionada:"NO",herramienta: state.herramienta}
+            return {tablero: newTab,maquinaSeleccionada:"NO",herramienta: state.herramienta, orientacionSeleccionada: "NO"}
         case "MOVER": //estoy eliminando y reemplazando habria que quizas guardar en el store la orientacion por ahora 
             if(state.maquinaSeleccionada === "NO"){
                 let selectMaq = state.tablero.map( (maq) => {
@@ -73,7 +83,7 @@ const edicion = (state, idCelda) => {
                 let filterd = state.tablero.filter( (value,index,array) => {
                     return (value.x !== columna && value.y !== fila)
                 })
-                let newState = {tablero: filterd, maquinaSeleccionada: selectMaq[0].type, herramienta: state.herramienta}
+                let newState = {tablero: filterd, maquinaSeleccionada: selectMaq[0].type, herramienta: state.herramienta, orientacionSeleccionada: selectMaq[0].orientacion}
                 console.log('nuevo estado ', newState);
               return newState;
             }else {
