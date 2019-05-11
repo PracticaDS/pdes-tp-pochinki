@@ -74,6 +74,8 @@ const aplicarTick = (state) => {
         }
     };
     return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada}
+}
+
 const edicion = (state, idCelda) => {
     let fila = Math.round(idCelda / 10);
     let columna = Math.round(idCelda % 10)+1;
@@ -147,9 +149,6 @@ const evaluarAccion = (state,idCelda) => {
     else{
         return colocarMaquina(state,idCelda)
     }
-}
-
-
 }
 
 const moverRecurso = (tab,ubicarRecursos) => {
