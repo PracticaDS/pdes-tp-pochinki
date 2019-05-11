@@ -5,7 +5,7 @@ import App from './App';
 import storeCreator from './storeCreator';
 import { Provider } from 'react-redux';
 import { selectMaquina, colocarMaquina } from './actions/maquina';
-import {start,tick} from './actions/start';
+import {tick} from './actions/start';
 
 const store = storeCreator();
 store.dispatch(selectMaquina("STARTER"));
