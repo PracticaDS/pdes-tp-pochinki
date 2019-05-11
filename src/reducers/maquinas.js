@@ -29,6 +29,7 @@ const colocarMaquina = (state,idCelda) => {
                 let newStateM = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"MOVER", orientacionSeleccionada: "abajo"}
                 console.log(newStateM);
                 return newStateM;
+            default: return state
         }      
     }
     
