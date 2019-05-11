@@ -1,7 +1,7 @@
 import React from 'react';
 import './Toolbox.css';
 import SeleccionMaquinas from '../containers/SeleccionMaquinasContainer';
-import PanelEdicion from './PanelEdicion';
+import PanelEdicion from '../containers/PanelEdicionContainer';
 
 const Toolbox = () => {
     return (

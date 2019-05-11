@@ -5,7 +5,7 @@ import {colocarMaquina} from '../actions/maquina';
 const mapStateToProps = (state) => (
      {
         tablero: state.maquinas.tablero,
-        maquinaSeleccionada : state.maquinas.maquinaSeleccionada
+        maquinaSeleccionada : state.maquinas.maquinaSeleccionada,
     }
 );
 
