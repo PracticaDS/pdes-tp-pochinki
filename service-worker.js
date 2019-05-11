@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/pdes-tp-pochinki/precache-manifest.492796cbba5a1c4649863f3b3af890e0.js"
+  "/pdes-tp-pochinki/precache-manifest.620e8cb20cb6905309d2fc204b54bb21.js"
 );
 
 workbox.clientsClaim();
