@@ -4,3 +4,9 @@ export const start= () => {
         type: 'START'
     }
 }
+
+export const tick= () => {
+    return {
+        type: 'TICK'
+    }
+}
