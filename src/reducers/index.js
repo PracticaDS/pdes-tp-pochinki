@@ -3,5 +3,5 @@ import maquinas from './maquinas';
 import tick from './start';
 
 export default combineReducers({
-    maquinas
+    maquinas,tick
 });
