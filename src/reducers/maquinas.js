@@ -22,7 +22,7 @@ const colocarMaquina = (state,idCelda) => {
             case "SELECCIONAR":
                 if(state.maquinaSeleccionada === "STARTER"){
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado});
-                    let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO"}
+                    let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: "NO"}
                     console.log(newStateS);
                     return newStateS; 
                 }else{
