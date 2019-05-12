@@ -21,7 +21,7 @@
   },
   "husky":{
     "hooks":{
-      "pre-push": "CI=true yarn test:watch"
+      "pre-push": "CI=true yarn test"
     }
   },
   "eslintConfig": {
