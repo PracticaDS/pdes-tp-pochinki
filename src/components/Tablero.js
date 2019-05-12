@@ -7,13 +7,15 @@ const renderMaquina = (maquinas,idCelda) => {
     let columna = Math.round(idCelda % 10)+1;
     let maquina = maquinas.find((value,index,array)=> {return (value.x === columna) && (value.y === fila)});
     if(maquina != null){
-        let clase = maquina.recurso !== "" ? maquina.orientacion + " " + maquina.type + "-active" : maquina.orientacion+ " " + maquina.type
+
+        let clase = maquina.recurso === "" ? maquina.orientacion+ " " + maquina.type : maquina.orientacion + " " + maquina.type + "-active"
 
         //Se puede refactorear cada imagen a un componente que reciba orientacion e imagen por props
         switch (maquina.type){
             case "CRAFTER":
                 return <img src={placeholder} alt="crafter" width='100%' height='100%' className={clase}/>
             case "SELLER":
+                clase = maquina.recurso.length === 0 ? maquina.orientacion+ " " + maquina.type : maquina.orientacion + " " + maquina.type + "-active"
                 return <img src={placeholder} alt="seller" width='100%' height='100%' className={clase}/>
             case "STARTER":
                 return <img src={placeholder} alt="starter" width='100%' height='100%' className={clase}/>

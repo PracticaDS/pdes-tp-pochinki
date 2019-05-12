@@ -19,7 +19,12 @@ const colocarMaquina = (state,idCelda) => {
     else{
         switch(state.herramienta){
             case "SELECCIONAR":
-                state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: ""});
+                if(state.maquinaSeleccionada === "SELLER"){
+                    state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: []});
+                }
+                else{
+                    state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: ""});
+                }
                 let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO",dinero: state.dinero - precioMaquina(state.maquinaSeleccionada)}
                 console.log(newStateS);
                 return newStateS; 
@@ -49,8 +54,10 @@ const aplicarTick = (state) => {
                 return newMaquina;
             case "SELLER":
                 if(maquina.recurso !== ""){
-                    sumaDinero = valorDeProducto(maquina.recurso);
-                    return {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:""}
+                    maquina.recurso.forEach((rec) =>{
+                        sumaDinero += valorDeProducto(rec);
+                    })
+                    return {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:[]}
                 }
                 return maquina
             default: 
@@ -77,7 +84,7 @@ const edicion = (state, idCelda) => {
     switch (state.herramienta) {
         case "BORRAR":
             let filtered = state.tablero.filter((value,index,array)=> {
-                return (value.x !== columna && value.y !== fila)
+                return (value.x !== columna || value.y !== fila)
             })
             return {tablero:filtered,maquinaSeleccionada:"NO",herramienta:state.herramienta, orientacionSeleccionada: "NO",dinero: state.dinero}
         case "ROTAR":
@@ -134,7 +141,14 @@ const evaluarAccion = (state,idCelda) => {
 const moverRecurso = (tab,ubicarRecursos) => {
     return tab.map((maq)=>{
         if(maq.x === ubicarRecursos.col && maq.y === ubicarRecursos.fil){
-            return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:ubicarRecursos.recurso}
+            switch (maq.type){
+                case "STARTER":
+                    return maq;
+                case "SELLER":
+                    maq.recurso.push(ubicarRecursos.recurso)
+                    return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:maq.recurso }
+                default: return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:ubicarRecursos.recurso}
+            }
         }
         return maq
     });
