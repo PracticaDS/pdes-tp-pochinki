@@ -1,32 +1,32 @@
 import { start, tick } from '../actions/start';
 
 const selectMaquina = (state,tipoMaquina) => {
-    let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO"};
+    let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO",dinero: state.dinero};
     return  newState;
 };
 
 const selectHerramienta = (state,herramienta) => {
-    let newState = {tablero: state.tablero,maquinaSeleccionada:"NO",herramienta:herramienta, orientacionSeleccionada: "NO"};
+    let newState = {tablero: state.tablero,maquinaSeleccionada:"NO",herramienta:herramienta, orientacionSeleccionada: "NO", dinero: state.dinero};
     return  newState;
 }
 
 const colocarMaquina = (state,idCelda) => {
     let fila = Math.round(idCelda / 10);
     let columna = Math.round(idCelda % 10)+1;
-    if(state.maquinaSeleccionada === "NO" || state.tablero.some((value,index,array)=> {return value.x === columna && value.y === fila})){
+    if(state.maquinaSeleccionada === "NO" || state.tablero.some((value,index,array)=> {return value.x === columna && value.y === fila}) || state.dinero < precioMaquina(state.maquinaSeleccionada)){
         return  state;
     }
     else{
         switch(state.herramienta){
             case "SELECCIONAR":
-                state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo"});
-                let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO"}
+                state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: ""});
+                let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO",dinero: state.dinero - precioMaquina(state.maquinaSeleccionada)}
                 console.log(newStateS);
                 return newStateS; 
             
             case "MOVER":
-                state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: state.orientacionSeleccionada});
-                let newStateM = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"MOVER", orientacionSeleccionada: "abajo"}
+                state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: state.orientacionSeleccionada, recurso: ""});
+                let newStateM = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"MOVER", orientacionSeleccionada: "abajo",dinero: state.dinero}
                 console.log(newStateM);
                 return newStateM;
             default: return state
@@ -51,6 +51,7 @@ const defUbicacion = (x,y,orient,rec) => {
 
 const aplicarTick = (state) => {
     let ubicarRecursos = [];
+    let sumaDinero = 0;
     let newTab = state.tablero.map((maquina)=>{
         switch (maquina.type){
             case "STARTER":
@@ -60,6 +61,12 @@ const aplicarTick = (state) => {
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
                 } 
                 return newMaquina;
+            case "SELLER":
+                if(maquina.recurso !== ""){
+                    sumaDinero = valorDeProducto(maquina.recurso);
+                    return {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:""}
+                }
+                return maquina
             default: 
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
@@ -73,9 +80,38 @@ const aplicarTick = (state) => {
             newTab = moverRecurso(newTab,ubicarRecursos[i])
         }
     };
-    return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada}
+    return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: state.herramienta,orientacionSeleccionada: state.orientacionSeleccionada, dinero: state.dinero + sumaDinero}
 }
 
+const valorDeProducto = (recurso) => {
+    switch (recurso) {
+        case "oro":
+            return 50;
+        case "oro fundido":
+            return 40;
+        default:
+            return 0;
+    }
+}
+
+
+const precioMaquina = (maquina) => {
+    switch (maquina){
+        case "STARTER":
+            return 300;
+        case "TRANSPORTER":
+            return 100;
+        case "FURNACE":
+            return 200;
+        case "CRAFTER":
+            return 250;
+        case "SELLER":
+            return 300;
+        default: return 0
+    }
+}
+
+//Deberiamos refactorizar cada metodo en uno aparte
 const edicion = (state, idCelda) => {
     let fila = Math.round(idCelda / 10);
     let columna = Math.round(idCelda % 10)+1;
@@ -84,7 +120,7 @@ const edicion = (state, idCelda) => {
             let filtered = state.tablero.filter((value,index,array)=> {
                 return (value.x !== columna && value.y !== fila)
             })
-            return {tablero:filtered,maquinaSeleccionada:"NO",herramienta:state.herramienta, orientacionSeleccionada: "NO"}
+            return {tablero:filtered,maquinaSeleccionada:"NO",herramienta:state.herramienta, orientacionSeleccionada: "NO",dinero: state.dinero}
         case "ROTAR":
             let newTab = state.tablero.map((val)=> {
                 if(val.x === columna && val.y === fila){
@@ -110,7 +146,7 @@ const edicion = (state, idCelda) => {
                     return val;
                 }
             })
-            return {tablero: newTab,maquinaSeleccionada:"NO",herramienta: state.herramienta, orientacionSeleccionada: "NO"}
+            return {tablero: newTab,maquinaSeleccionada:"NO",herramienta: state.herramienta, orientacionSeleccionada: "NO",dinero:state.dinero}
         case "MOVER": //estoy eliminando y reemplazando habria que quizas guardar en el store la orientacion por ahora 
             if(state.maquinaSeleccionada === "NO"){
                 let selectMaq = state.tablero.map( (maq) => {
@@ -125,7 +161,7 @@ const edicion = (state, idCelda) => {
                 let filterd = state.tablero.filter( (value,index,array) => {
                     return (value.x !== columna && value.y !== fila)
                 })
-                let newState = {tablero: filterd, maquinaSeleccionada: selectMaq[0].type, herramienta: state.herramienta, orientacionSeleccionada: selectMaq[0].orientacion}
+                let newState = {tablero: filterd, maquinaSeleccionada: selectMaq[0].type, herramienta: state.herramienta, orientacionSeleccionada: selectMaq[0].orientacion,dinero: state.dinero}
                 console.log('nuevo estado ', newState);
               return newState;
             }else {

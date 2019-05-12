@@ -35,3 +35,54 @@
 .arriba {
     transform: rotate(180deg)
 }
+
+.STARTER-active{
+    background: url('../assets/starter-active.png') no-repeat;
+    background-size: cover;
+}
+
+.STARTER{
+    background: url('../assets/starter.png') no-repeat;
+    background-size: cover
+}
+
+.TRANSPORTER {
+    background: url('../assets/transporter.png') no-repeat;
+    background-size: cover;
+}
+
+.TRANSPORTER-active {
+    background: url('../assets/transporter-active.gif') no-repeat;
+    background-size: cover;
+}
+
+.CRAFTER {
+    background: url('../assets/crafter.png') no-repeat;
+    background-size: cover;
+}
+
+.CRAFTER-active {
+    background: url('../assets/crafter-active.png') no-repeat;
+    background-size: cover;
+}
+
+.FURNACE {
+    background: url('../assets/furnace.png') no-repeat;
+    background-size: cover;
+}
+
+.FURNACE-active {
+    background: url('../assets/furnace-active.png') no-repeat;
+    background-size: cover;
+}
+
+.SELLER {
+    background: url('../assets/seller.png') no-repeat;
+    background-size: cover;
+}
+
+.SELLER-active {
+    background: url('../assets/seller-active.png') no-repeat;
+    background-size: cover;
+}
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Fabrica from './components/Fabrica';
+import Fabrica from './containers/FabricaContainer';
 
 const App = () => {
     return (
