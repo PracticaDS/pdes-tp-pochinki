@@ -1,28 +1,28 @@
 import React from 'react';
 import "./Tablero.css";
-import crafter from "../assets/crafter.png";
-import seller from "../assets/seller.png";
-import starter from "../assets/starter.png";
-import transporter from '../assets/transporter.png';
-import furnace from '../assets/furnace.png';
+import placeholder from '../assets/placeholder.png';
 
 const renderMaquina = (maquinas,idCelda) => {
     let fila = Math.round(idCelda / 10);
     let columna = Math.round(idCelda % 10)+1;
     let maquina = maquinas.find((value,index,array)=> {return (value.x === columna) && (value.y === fila)});
     if(maquina != null){
+
+        let clase = maquina.recurso === "" ? maquina.orientacion+ " " + maquina.type : maquina.orientacion + " " + maquina.type + "-active"
+
         //Se puede refactorear cada imagen a un componente que reciba orientacion e imagen por props
         switch (maquina.type){
             case "CRAFTER":
-                return <img src={crafter} alt="crafter" width='100%' height='100%' className={maquina.orientacion}/>
+                return <img src={placeholder} alt="crafter" width='100%' height='100%' className={clase}/>
             case "SELLER":
-                return <img src={seller} alt="seller" width='100%' height='100%' className={maquina.orientacion}/>
+                clase = maquina.recurso.length === 0 ? maquina.orientacion+ " " + maquina.type : maquina.orientacion + " " + maquina.type + "-active"
+                return <img src={placeholder} alt="seller" width='100%' height='100%' className={clase}/>
             case "STARTER":
-                return <img src={starter} alt="starter" width='100%' height='100%' className={maquina.orientacion}/>
+                return <img src={placeholder} alt="starter" width='100%' height='100%' className={clase}/>
             case "TRANSPORTER":
-                return <img src={transporter} alt="transporter" width='100%' height='100%' className={maquina.orientacion}/>
+                return <img src={placeholder} alt="transporter" width='100%' height='100%' className={clase}/>
             case "FURNACE":
-                return <img src={furnace} alt="furnace" width='100%' height='100%' className={maquina.orientacion}/>
+                return <img src={placeholder} alt="furnace" width='100%' height='100%' className={clase}/>
             default :
                 return null
         }
