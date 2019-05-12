@@ -1,4 +1,4 @@
-import { start, tick } from '../actions/start';
+import { defUbicacion, precioMaquina, valorDeProducto, rotar} from '../model/maquina';
 
 const selectMaquina = (state,tipoMaquina) => {
     let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO",dinero: state.dinero};
@@ -35,20 +35,6 @@ const colocarMaquina = (state,idCelda) => {
     
 };
 
-const defUbicacion = (x,y,orient,rec) => {
-    switch (orient){
-        case "derecha":
-            return {col: x+1,fil:y,recurso:rec}
-        case "arriba":
-            return {col: x,fil:y-1,recurso:rec}
-        case "izquierda":
-            return {col: x-1,fil:y,recurso:rec}
-        case "abajo":
-            return {col: x,fil:y+1,recurso:rec}
-        default: return {col:x,fil:y,recurso:rec}
-    }
-}
-
 const aplicarTick = (state) => {
     let ubicarRecursos = [];
     let sumaDinero = 0;
@@ -83,33 +69,6 @@ const aplicarTick = (state) => {
     return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: state.herramienta,orientacionSeleccionada: state.orientacionSeleccionada, dinero: state.dinero + sumaDinero}
 }
 
-const valorDeProducto = (recurso) => {
-    switch (recurso) {
-        case "oro":
-            return 50;
-        case "oro fundido":
-            return 40;
-        default:
-            return 0;
-    }
-}
-
-
-const precioMaquina = (maquina) => {
-    switch (maquina){
-        case "STARTER":
-            return 300;
-        case "TRANSPORTER":
-            return 100;
-        case "FURNACE":
-            return 200;
-        case "CRAFTER":
-            return 250;
-        case "SELLER":
-            return 300;
-        default: return 0
-    }
-}
 
 //Deberiamos refactorizar cada metodo en uno aparte
 const edicion = (state, idCelda) => {
@@ -124,22 +83,7 @@ const edicion = (state, idCelda) => {
         case "ROTAR":
             let newTab = state.tablero.map((val)=> {
                 if(val.x === columna && val.y === fila){
-                    let newMaq = {type: val.type, x: val.x, y: val.y, orientacion: val.orientacion}
-                    switch(val.orientacion){
-                        case "abajo":
-                            newMaq.orientacion = "izquierda";
-                            break;
-                        case "arriba":
-                            newMaq.orientacion = "derecha";
-                            break;
-                        case "izquierda":
-                            newMaq.orientacion = "arriba";
-                            break;
-                        case "derecha":
-                            newMaq.orientacion = "abajo";
-                            break;
-                        default: break;
-                    }
+                    let newMaq = {type: val.type, x: val.x, y: val.y, orientacion: rotar(val.orientacion)}
                     return newMaq;
                 }
                 else{
@@ -196,22 +140,15 @@ const moverRecurso = (tab,ubicarRecursos) => {
     });
 }
 
-const loop = (state) => {
-    setTimeout(()=> {console.log("tick");maquinas(state,start())},1000);
-    maquinas(state,tick());
-    return state;
-    
-}
 
-const maquinas = (state={tablero:[],maquinaSeleccionada:"NO",herramienta:"SELECCIONAR"}, action) => {
+
+const maquinas = (state={tablero:[],maquinaSeleccionada:"NO",herramienta:"SELECCIONAR",dinero:0}, action) => {
     console.log('reducer', state, action);
     switch (action.type) {
         case 'SELECT' :
             return selectMaquina(state, action.tipoMaquina);
         case 'PUT' :
             return evaluarAccion(state, action.idCelda);
-        case 'START' :
-            return loop(state);
         case 'TICK':
             return aplicarTick(state);
         case 'SELECT_HERRAMIENTA':

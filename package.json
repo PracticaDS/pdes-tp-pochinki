@@ -16,7 +16,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "pre-push": "yarn test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,6 +36,7 @@
     "@storybook/react": "^5.0.10",
     "babel-loader": "^8.0.5",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1"
+    "enzyme-adapter-react-16": "^1.12.1",
+    "husky": "^2.2.0"
   }
 }

@@ -11,7 +11,7 @@ const mapStateToProps = (state) => (
 
 
 const mapActionsToProps = (dispatch) => {
-   
+   return {}
 };
 
 const FabricaContainer = connect(
