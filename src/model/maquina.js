@@ -41,7 +41,7 @@ export const precioMaquina = (maquina) => {
 }
 
 export const rotar = (orientation) => {
-    switch(orientacion){
+    switch(orientation){
         case "abajo":
             return "izquierda";
         case "arriba":
