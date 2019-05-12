@@ -1,14 +1,22 @@
 import { start, tick } from '../actions/start';
 
-const selectMaquina = (state,tipoMaquina, material) => {
-    let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: material};
-    console.log('estado con material', newState);
+
+const selectMaquina = (state,tipoMaquina) => {
+    let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO"};
+    console.log('state con tipo maquina', newState);
     return  newState;
 };
 
 const selectHerramienta = (state,herramienta) => {
     let newState = {tablero: state.tablero,maquinaSeleccionada:"NO",herramienta:herramienta, orientacionSeleccionada: "NO"};
+    console.log('state con herramienta ', newState);
     return  newState;
+}
+
+const selectMaterial = (state,material) => {
+    let newState = {tablero: state.tablero,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: material};
+    console.log('state con material ', newState);
+    return newState;
 }
 
 const colocarMaquina = (state,idCelda) => {
@@ -18,12 +26,14 @@ const colocarMaquina = (state,idCelda) => {
         return  state;
     }
     else{
+        console.log('Llego al switch colocar maquina', state.maquinaSeleccionada);
+        console.log('Llego al switch colocar maquina', state.herramienta);
         switch(state.herramienta){
             case "SELECCIONAR":
                 if(state.maquinaSeleccionada === "STARTER"){
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado});
                     let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: "NO"}
-                    console.log(newStateS);
+                    console.log('Entro en colocar maquina ',newStateS);
                     return newStateS; 
                 }else{
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo"});
@@ -81,7 +91,7 @@ const aplicarTick = (state) => {
             newTab = moverRecurso(newTab,ubicarRecursos[i])
         }
     };
-    return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada}
+    return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada, herramienta: state.herramienta, materialSeleccionado: state.materialSeleccionado}
 }
 
 const edicion = (state, idCelda) => {
@@ -179,7 +189,7 @@ const maquinas = (state={tablero:[],maquinaSeleccionada:"NO",herramienta:"SELECC
     console.log('reducer', state, action);
     switch (action.type) {
         case 'SELECT' :
-            return selectMaquina(state, action.tipoMaquina, action.material);
+            return selectMaquina(state, action.tipoMaquina);
         case 'PUT' :
             return evaluarAccion(state, action.idCelda);
         case 'START' :
@@ -188,6 +198,8 @@ const maquinas = (state={tablero:[],maquinaSeleccionada:"NO",herramienta:"SELECC
             return aplicarTick(state);
         case 'SELECT_HERRAMIENTA':
             return selectHerramienta(state, action.herramienta);
+        case 'SELECT_MAT':
+            return selectMaterial(state,action.material);
         default: return state;
 
     }

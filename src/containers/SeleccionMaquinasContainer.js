@@ -6,8 +6,7 @@ import SeleccionMaquinas from '../components/SeleccionMaquinas';
 const mapStateToProps = (state) => (
       
      {
-        maquinaSeleccionada : state.maquinas.maquinaSeleccionada,
-        materialSeleccionado: state.maquinas.materialSeleccionado
+        maquinaSeleccionada : state.maquinas.maquinaSeleccionada
     }
 );
 

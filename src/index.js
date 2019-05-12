@@ -8,7 +8,7 @@ import { selectMaquina, colocarMaquina } from './actions/maquina';
 import {tick} from './actions/start';
 
 const store = storeCreator();
-store.dispatch(selectMaquina("STARTER"));
+store.dispatch(selectMaquina({tipoMaquina: "STARTER", material: "ORO"}));
 store.dispatch(colocarMaquina(2));
 const loop = () => {
     setTimeout(() => {store.dispatch(tick());loop()},5000)

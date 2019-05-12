@@ -1,22 +1,21 @@
 export const selectMaquina = (maquina) => {
-    console.log('Objeto maquina action ',maquina);
-    switch(maquina.tipoMaquina){
-        case "STARTER":
-            return {
-                type: 'SELECT',
-                tipoMaquina: maquina.tipoMaquina,
-                material: maquina.material        
-            }
-        default: return {
+    return{
             type: 'SELECT',
             tipoMaquina: maquina.tipoMaquina
-        }
     }
 }
+
 export const colocarMaquina = (idCelda) => {
     console.log(idCelda);
     return {
         type: 'PUT',
         idCelda
+    }
+}
+
+export const selectMaterial = (material) => {
+    return {
+        type: 'SELECT_MAT',
+        material
     }
 }
