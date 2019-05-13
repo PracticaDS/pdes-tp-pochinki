@@ -1,4 +1,4 @@
-import { defUbicacion, precioMaquina, valorDeProducto, rotar} from '../model/maquina';
+import { defUbicacion, precioMaquina, valorDeProducto, rotar, transformacionRecurso} from '../model/maquina';
 
 const selectMaquina = (state,tipoMaquina) => {
     let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO",dinero: state.dinero};
@@ -46,7 +46,7 @@ const aplicarTick = (state) => {
     let newTab = state.tablero.map((maquina)=>{
         switch (maquina.type){
             case "STARTER":
-                let nRecurso = maquina.recurso !== "" ? "" : "oro";
+                let nRecurso = maquina.recurso !== "" ? "" : "ORO";
                 let newMaquina = {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:nRecurso};
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
@@ -60,6 +60,14 @@ const aplicarTick = (state) => {
                     return {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:[]}
                 }
                 return maquina
+            case "FURNACE":
+                if(maquina.recurso !== ""){
+                    let nRecurso = transformacionRecurso(maquina.recurso);
+                    let newMaquina = {type: maquina.type,x: maquina.x,y: maquina.y, orientacion: maquina.orientacion, recurso: nRecurso};
+                    console.log('Maq con mat fundido ', newMaquina);
+                    return newMaquina;
+                }
+                return maquina;
             default: 
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
