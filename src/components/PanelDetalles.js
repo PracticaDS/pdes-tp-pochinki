@@ -21,7 +21,7 @@ const renderSinInfo = () => {
 }
 
 const renderInfoMat = (onMatClick) => {
-    return  <div>
+    return  <div className="panelMats">
                 <img src={oro} alt="oroBot" className="botonMat" onClick={() => onMatClick("ORO")}/>
                 <p className="infoMat"> Oro </p>
                 <img src={cobre} alt="cobreBot" className="botonMat" onClick={() => onMatClick("COBRE")}/>
@@ -42,7 +42,7 @@ const PanelDetalles = ({tablero,maquinaSeleccionada,onMatClick}) => {
             case "STARTER":
                 return renderInfoMat(onMatClick)
             default:
-                return <div><p className="infoText">Materiales para starter</p></div>
+                return <div></div>
         }
     }
 
@@ -71,7 +71,7 @@ const PanelDetalles = ({tablero,maquinaSeleccionada,onMatClick}) => {
                     {displayInfo(maquinaSeleccionada)}
                     
                 </div>
-                <div className="panelMats">
+                <div>
                     {displayInfoSt(maquinaSeleccionada)}
                 </div>
             </div>

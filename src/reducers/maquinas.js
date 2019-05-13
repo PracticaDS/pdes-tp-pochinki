@@ -1,4 +1,4 @@
-import { defUbicacion, precioMaquina, valorDeProducto, rotar} from '../model/maquina';
+import { defUbicacion, precioMaquina, valorDeProducto} from '../model/maquina';
 
 
 const selectMaquina = (state,tipoMaquina) => {
@@ -12,7 +12,7 @@ const selectHerramienta = (state,herramienta) => {
 }
 
 const selectMaterial = (state,material) => {
-    let newState = {tablero: state.tablero,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: material};
+    let newState = {tablero: state.tablero,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: material,dinero:state.dinero};
     console.log('state con material ', newState);
     return newState;
 }
@@ -31,11 +31,6 @@ const colocarMaquina = (state,idCelda) => {
                 if(state.maquinaSeleccionada === "STARTER"){
                     if(state.materialSeleccionado !== "" && state.materialSeleccionado !== "NO" && typeof state.materialSeleccionado !== "undefined"){
                         state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado,material: state.materialSeleccionado});
-                        let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: "NO"}
-                        console.log('Entro en colocar maquina ',newStateS);
-                        return newStateS; 
-                    }else{
-                        return state;
                     }     
                 }else if(state.maquinaSeleccionada === "SELLER"){
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: []});

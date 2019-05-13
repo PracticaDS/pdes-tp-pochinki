@@ -14,10 +14,18 @@ export const defUbicacion = (x,y,orient,rec) => {
 
 export const valorDeProducto = (recurso) => {
     switch (recurso) {
-        case "oro":
+        case "ORO":
             return 50;
-        case "oro fundido":
+        case "ORO FUNDIDO":
             return 40;
+        case "COBRE":
+            return 25;
+        case "CARBON":
+            return 5;
+        case "ALUMINIO":
+            return 20;
+        case "HIERRO":
+            return 10;
         default:
             return 0;
     }
