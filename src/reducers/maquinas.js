@@ -32,7 +32,7 @@ const colocarMaquina = (state,idCelda) => {
             case "SELECCIONAR":
                 if(state.maquinaSeleccionada === "STARTER"){
                     if(state.materialSeleccionado !== "" && state.materialSeleccionado !== "NO" && typeof state.materialSeleccionado !== "undefined"){
-                        state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado});
+                        state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado,material: state.materialSeleccionado});
                         let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: "NO"}
                         console.log('Entro en colocar maquina ',newStateS);
                         return newStateS; 
@@ -76,8 +76,8 @@ const aplicarTick = (state) => {
     let newTab = state.tablero.map((maquina)=>{
         switch (maquina.type){
             case "STARTER":
-                let nRecurso = maquina.recurso !== "" ? maquina.recurso : "";
-                let newMaquina = {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:nRecurso};
+                let nRecurso = maquina.recurso !== "" ? "" : maquina.material;
+                let newMaquina = {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:nRecurso, material: maquina.material};
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
                     maquina.recurso = "";
@@ -111,7 +111,7 @@ const edicion = (state, idCelda) => {
         case "ROTAR":
             let newTab = state.tablero.map((val)=> {
                 if(val.x === columna && val.y === fila){
-                    let newMaq = {type: val.type, x: val.x, y: val.y, orientacion: val.orientacion}
+                    let newMaq = {type: val.type, x: val.x, y: val.y, orientacion: val.orientacion, recurso: val.recurso, material: val.material}
                     switch(val.orientacion){
                         case "abajo":
                             newMaq.orientacion = "izquierda";
@@ -138,7 +138,7 @@ const edicion = (state, idCelda) => {
             if(state.maquinaSeleccionada === "NO"){
                 let selectMaq = state.tablero.map( (maq) => {
                     if(maq.x === columna && maq.y === fila){
-                        let selMaq = {type: maq.type, x: maq.x, y: maq.y, orientacion: maq.orientacion}
+                        let selMaq = {type: maq.type, x: maq.x, y: maq.y, orientacion: maq.orientacion, material: maq.material}
                         return selMaq;
                     }else{
                         return maq;
@@ -177,7 +177,7 @@ const evaluarAccion = (state,idCelda) => {
 const moverRecurso = (tab,ubicarRecursos) => {
     return tab.map((maq)=>{
         if(maq.x === ubicarRecursos.col && maq.y === ubicarRecursos.fil){
-            return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:ubicarRecursos.recurso}
+            return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:ubicarRecursos.recurso, material: maq.material}
         }
         return maq
     });
