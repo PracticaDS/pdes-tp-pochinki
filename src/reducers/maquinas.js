@@ -76,6 +76,7 @@ const aplicarTick = (state) => {
                 let newMaquina = {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:nRecurso};
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
+                    maquina.recurso = "";
                 } 
                 return newMaquina;
             default: 
