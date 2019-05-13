@@ -31,10 +31,14 @@ const colocarMaquina = (state,idCelda) => {
         switch(state.herramienta){
             case "SELECCIONAR":
                 if(state.maquinaSeleccionada === "STARTER"){
-                    state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado});
-                    let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: "NO"}
-                    console.log('Entro en colocar maquina ',newStateS);
-                    return newStateS; 
+                    if(state.materialSeleccionado !== "" && state.materialSeleccionado !== "NO" && typeof state.materialSeleccionado !== "undefined"){
+                        state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado});
+                        let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: "NO"}
+                        console.log('Entro en colocar maquina ',newStateS);
+                        return newStateS; 
+                    }else{
+                        return state;
+                    }     
                 }else{
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo"});
                     let newStateS = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"SELECCIONAR", orientacionSeleccionada: "NO"}
