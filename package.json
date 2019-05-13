@@ -14,9 +14,15 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:watch": "react-scripts test --watchAll",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
+  },
+  "husky":{
+    "hooks":{
+      "pre-push": "CI=true yarn test"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,6 +41,7 @@
     "@storybook/react": "^5.0.10",
     "babel-loader": "^8.0.5",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1"
+    "enzyme-adapter-react-16": "^1.12.1",
+    "husky": "^2.2.0"
   }
 }
