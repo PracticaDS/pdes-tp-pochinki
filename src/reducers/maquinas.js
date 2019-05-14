@@ -1,4 +1,5 @@
-import { defUbicacion, precioMaquina, valorDeProducto} from '../model/maquina';
+
+import { defUbicacion, precioMaquina, valorDeProducto, transformacionRecurso} from '../model/maquina';
 
 
 const selectMaquina = (state,tipoMaquina) => {
@@ -59,8 +60,10 @@ const aplicarTick = (state) => {
     let newTab = state.tablero.map((maquina)=>{
         switch (maquina.type){
             case "STARTER":
+
                 let nRecurso = maquina.recurso !== "" ? "" : maquina.material;
                 let newMaquina = {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:nRecurso, material: maquina.material};
+
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
                     maquina.recurso = "";
@@ -74,6 +77,14 @@ const aplicarTick = (state) => {
                     return {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:[]}
                 }
                 return maquina
+            case "FURNACE":
+                if(maquina.recurso !== ""){
+                    let nRecurso = transformacionRecurso(maquina.recurso);
+                    ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,nRecurso))
+                    let newMaquina = {type: maquina.type,x: maquina.x,y: maquina.y, orientacion: maquina.orientacion, recurso: ""};
+                    return newMaquina;
+                }
+                return maquina;
             default: 
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))

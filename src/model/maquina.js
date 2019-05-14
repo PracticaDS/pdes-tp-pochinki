@@ -31,6 +31,22 @@ export const valorDeProducto = (recurso) => {
     }
 }
 
+export const transformacionRecurso = (recurso) => {
+    switch(recurso){
+        case "ORO":
+            return "ORO FUNDIDO";
+        case "COBRE":
+            return "COBRE FUNDIDO";
+        case "ALUMINIO":
+            return "ALUMINIO FUNDIDO";
+        case "CARBON":
+            return "CARBON FUNDIDO";
+        case "HIERRO":
+            return "HIERRO FUNDIDO";
+        default:
+            return recurso;
+    }
+}
 
 export const precioMaquina = (maquina) => {
     switch (maquina){
