@@ -18,6 +18,8 @@ const selectMaterial = (state,material) => {
     return newState;
 }
 
+//COlORCAR CRAFTER CON BLUEPRINT (SIMIL STARTER)
+//AGREGAR CAMPO BLUEPRINT EN MAQUINA CUANDO ES CRAFTER
 const colocarMaquina = (state,idCelda) => {
     let fila = Math.round(idCelda / 10);
     let columna = Math.round(idCelda % 10)+1;
@@ -25,8 +27,6 @@ const colocarMaquina = (state,idCelda) => {
         return  state;
     }
     else{
-        console.log('Llego al switch colocar maquina', state.maquinaSeleccionada);
-        console.log('Llego al switch colocar maquina', state.herramienta);
         switch(state.herramienta){
             case "SELECCIONAR":
                 if(state.maquinaSeleccionada === "STARTER"){
@@ -54,6 +54,7 @@ const colocarMaquina = (state,idCelda) => {
     
 };
 
+//AGREGAR EN CRAFTER QUE SI TIENE LOS INGREDIENTES DE LA BLUEPRINT GENERE EL RESULTADO Y LO PASE
 const aplicarTick = (state) => {
     let ubicarRecursos = [];
     let sumaDinero = 0;

@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 import PanelDetalles from '../components/PanelDetalles';
 import {selectMaterial} from '../actions/maquina'
+import { blueprints } from '../model/maquina';
 
 const mapStateToProps = (state) => (
      {
         tablero: state.maquinas.tablero,
         maquinaSeleccionada : state.maquinas.maquinaSeleccionada,
-        materialSeleccionado: state.maquinas.materialSeleccionado
+        materialSeleccionado: state.maquinas.materialSeleccionado,
+        blueprints: blueprints()
     }
 );
 
