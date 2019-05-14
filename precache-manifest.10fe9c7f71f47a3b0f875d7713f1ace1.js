@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "c76ca84efd0695258167",
-    "url": "/pdes-tp-pochinki/static/css/main.eb04eecc.chunk.css"
+    "revision": "a4ff81a0b26b91b886bf",
+    "url": "/pdes-tp-pochinki/static/css/main.713d3a67.chunk.css"
   },
   {
-    "revision": "c76ca84efd0695258167",
-    "url": "/pdes-tp-pochinki/static/js/main.73ae1d41.chunk.js"
+    "revision": "a4ff81a0b26b91b886bf",
+    "url": "/pdes-tp-pochinki/static/js/main.020f410b.chunk.js"
   },
   {
     "revision": "150b947feb695a45110c",
@@ -36,7 +36,7 @@ self.__precacheManifest = [
     "url": "/pdes-tp-pochinki/static/media/carbon.aebaa428.PNG"
   },
   {
-    "revision": "bc0dfaf1739da2458cec7619f93c0cb5",
+    "revision": "ac0aaaa97c9d012068f00b75c9128d26",
     "url": "/pdes-tp-pochinki/index.html"
   }
 ];
