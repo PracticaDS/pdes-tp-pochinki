@@ -35,12 +35,35 @@ const renderInfoMat = (onMatClick) => {
             </div>
 }
 
-const PanelDetalles = ({tablero,maquinaSeleccionada,onMatClick}) => {
+// ACA HAY QUE AGREGAR UN BOTON PARA SELECCIONAR LA BLUEPRINT
+const renderBlueprints = (blueprints) => {
+    return <div className="panelBlue">
+        { blueprints.map(function(item) {
+                return <div key={item} className="infoText">
+                    <p>{item.nombre}</p>
+                    <p>{item.ingrediente1}</p>
+                    <p>{item.ingrediente2}</p> 
+                 </div>
+            })
+        }
+    </div>
+}
+
+const PanelDetalles = ({tablero,maquinaSeleccionada,blueprints,onMatClick}) => {
 
     const displayInfoSt= (maquina) => {
         switch(maquina){
             case "STARTER":
                 return renderInfoMat(onMatClick)
+            default:
+                return <div></div>
+        }
+    }
+
+    const displayBluePrints = (maquina) => {
+        switch(maquina){
+            case "CRAFTER":
+                return renderBlueprints(blueprints)
             default:
                 return <div></div>
         }
@@ -69,6 +92,7 @@ const PanelDetalles = ({tablero,maquinaSeleccionada,onMatClick}) => {
             <div className="info">
                 <div className="infobox">
                     {displayInfo(maquinaSeleccionada)}
+                    {displayBluePrints(maquinaSeleccionada)}
                     
                 </div>
                 <div>

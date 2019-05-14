@@ -26,6 +26,12 @@ export const valorDeProducto = (recurso) => {
             return 20;
         case "HIERRO":
             return 10;
+        case "ANILLO DE ORO":
+            return 300;
+        case "HORNO":
+            return 50;
+        case "TV":
+            return 120;
         default:
             return 0;
     }
@@ -60,4 +66,10 @@ export const rotar = (orientation) => {
             return "abajo";
         default: return orientation;
     }
+}
+
+export const blueprints = () => {
+    return [{nombre:"Blueprint Horno",ingrediente1:"HIERRO",ingrediente2:"CARBON",resultado:"HORNO"},
+    {nombre:"Blueprint Anillo",ingrediente1:"ORO FUNDIDO",ingrediente2:"ORO FUNDIDO",resultado:"ANILLO DE ORO"},
+    {nombre:"Blueprint TV", ingrediente1:"COBRE", ingrediente2:"ALUMINIO",resultado:"TV"}]
 }
