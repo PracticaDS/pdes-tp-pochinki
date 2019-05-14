@@ -34,3 +34,28 @@
     margin-top: 10px;
     margin-left: 10px
 }
+
+.panelMats {
+    background-color: blueviolet;
+    height: 280px;
+    width: 180px;
+    margin-left: 40px;
+    margin-right: 20px;
+    padding: 4px;
+    border: 1px solid rgb(179, 214, 214);
+    border-radius: 4px;
+    
+}
+
+.infoMat {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 20px;   
+}
+
+.botonMat{
+    float: left;
+}
+
+.botonMat:hover {
+    border: 1px solid orange;
+}
