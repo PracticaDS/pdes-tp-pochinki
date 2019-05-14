@@ -1,5 +1,5 @@
 
-import { defUbicacion, precioMaquina, valorDeProducto, rotar, transformacionRecurso} from '../model/maquina';
+import { defUbicacion, precioMaquina, valorDeProducto, transformacionRecurso} from '../model/maquina';
 
 
 const selectMaquina = (state,tipoMaquina) => {
