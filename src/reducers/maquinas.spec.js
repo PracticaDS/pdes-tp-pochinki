@@ -7,11 +7,13 @@ describe('game reducer', () => {
     })
 
     it('should handle select action',() => {
-        expect(maquinas(undefined,selectMaquina("STARTER")).maquinaSeleccionada).toEqual("STARTER")
+        let newS = maquinas(undefined,selectMaquina({tipoMaquina:"SELLER"}));
+        console.log(newS);
+        expect(newS.maquinaSeleccionada).toEqual("SELLER")
     })
 
     it('should handle put action after select with enough money',() => {
-        const state = maquinas(undefined,selectMaquina("STARTER"));
+        const state = maquinas(undefined,selectMaquina({tipoMaquina:"SELLER"}));
         state.dinero = 1000;
         const newState = maquinas(state,colocarMaquina(2));
         expect(newState.tablero.length).toEqual(1);
@@ -26,20 +28,20 @@ describe('game reducer', () => {
     })
 
     it('should not let to add a new machine in the board without enough money',() => {
-        const state = maquinas(undefined,selectMaquina("STARTER"));
+        const state = maquinas(undefined,selectMaquina({tipoMaquina:"SELLER"}));
         const newState = maquinas(state,colocarMaquina(2));
         expect(newState.tablero.length).toEqual(0);
-        expect(newState.maquinaSeleccionada).toEqual("STARTER");
+        expect(newState.maquinaSeleccionada).toEqual("SELLER");
     })
 
     it('should not let to add a new machine in the board in a occupied cell',() => {
-        const state = maquinas(undefined,selectMaquina("CRAFTER"));
+        const state = maquinas(undefined,selectMaquina({tipoMaquina:"CRAFTER"}));
         state.dinero = 1000;
         let newState = maquinas(state,colocarMaquina(2));
         expect(newState.tablero.length).toEqual(1);
-        newState = maquinas(newState,selectMaquina("STARTER"));
+        newState = maquinas(newState,selectMaquina({tipoMaquina:"SELLER"}));
         newState = maquinas(newState,colocarMaquina(2));
         expect(newState.tablero.length).toEqual(1);
-        expect(newState.maquinaSeleccionada).toEqual("STARTER");
+        expect(newState.maquinaSeleccionada).toEqual("SELLER");
     })
 })

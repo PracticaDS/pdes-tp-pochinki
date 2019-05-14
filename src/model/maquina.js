@@ -18,6 +18,14 @@ export const valorDeProducto = (recurso) => {
             return 50;
         case "ORO FUNDIDO":
             return 40;
+        case "COBRE":
+            return 25;
+        case "CARBON":
+            return 5;
+        case "ALUMINIO":
+            return 20;
+        case "HIERRO":
+            return 10;
         default:
             return 0;
     }

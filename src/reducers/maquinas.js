@@ -1,4 +1,6 @@
+
 import { defUbicacion, precioMaquina, valorDeProducto, rotar, transformacionRecurso} from '../model/maquina';
+
 
 const selectMaquina = (state,tipoMaquina) => {
     let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO",dinero: state.dinero};
@@ -10,6 +12,12 @@ const selectHerramienta = (state,herramienta) => {
     return  newState;
 }
 
+const selectMaterial = (state,material) => {
+    let newState = {tablero: state.tablero,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: material,dinero:state.dinero};
+    console.log('state con material ', newState);
+    return newState;
+}
+
 const colocarMaquina = (state,idCelda) => {
     let fila = Math.round(idCelda / 10);
     let columna = Math.round(idCelda % 10)+1;
@@ -17,9 +25,15 @@ const colocarMaquina = (state,idCelda) => {
         return  state;
     }
     else{
+        console.log('Llego al switch colocar maquina', state.maquinaSeleccionada);
+        console.log('Llego al switch colocar maquina', state.herramienta);
         switch(state.herramienta){
             case "SELECCIONAR":
-                if(state.maquinaSeleccionada === "SELLER"){
+                if(state.maquinaSeleccionada === "STARTER"){
+                    if(state.materialSeleccionado !== "" && state.materialSeleccionado !== "NO" && typeof state.materialSeleccionado !== "undefined"){
+                        state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado,material: state.materialSeleccionado});
+                    }     
+                }else if(state.maquinaSeleccionada === "SELLER"){
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: []});
                 }
                 else{
@@ -46,10 +60,13 @@ const aplicarTick = (state) => {
     let newTab = state.tablero.map((maquina)=>{
         switch (maquina.type){
             case "STARTER":
-                let nRecurso = maquina.recurso !== "" ? "" : "ORO";
-                let newMaquina = {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:nRecurso};
+
+                let nRecurso = maquina.recurso !== "" ? "" : maquina.material;
+                let newMaquina = {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:nRecurso, material: maquina.material};
+
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
+                    maquina.recurso = "";
                 } 
                 return newMaquina;
             case "SELLER":
@@ -81,7 +98,7 @@ const aplicarTick = (state) => {
             newTab = moverRecurso(newTab,ubicarRecursos[i])
         }
     };
-    return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: state.herramienta,orientacionSeleccionada: state.orientacionSeleccionada, dinero: state.dinero + sumaDinero}
+    return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: state.herramienta,orientacionSeleccionada: state.orientacionSeleccionada,materialSeleccionado: state.materialSeleccionado, dinero: state.dinero + sumaDinero}
 }
 
 
@@ -98,7 +115,22 @@ const edicion = (state, idCelda) => {
         case "ROTAR":
             let newTab = state.tablero.map((val)=> {
                 if(val.x === columna && val.y === fila){
-                    let newMaq = {type: val.type, x: val.x, y: val.y, orientacion: rotar(val.orientacion)}
+                    let newMaq = {type: val.type, x: val.x, y: val.y, orientacion: val.orientacion, recurso: val.recurso, material: val.material}
+                    switch(val.orientacion){
+                        case "abajo":
+                            newMaq.orientacion = "izquierda";
+                            break;
+                        case "arriba":
+                            newMaq.orientacion = "derecha";
+                            break;
+                        case "izquierda":
+                            newMaq.orientacion = "arriba";
+                            break;
+                        case "derecha":
+                            newMaq.orientacion = "abajo";
+                            break;
+                        default: break;
+                    }
                     return newMaq;
                 }
                 else{
@@ -110,7 +142,7 @@ const edicion = (state, idCelda) => {
             if(state.maquinaSeleccionada === "NO"){
                 let selectMaq = state.tablero.map( (maq) => {
                     if(maq.x === columna && maq.y === fila){
-                        let selMaq = {type: maq.type, x: maq.x, y: maq.y, orientacion: maq.orientacion}
+                        let selMaq = {type: maq.type, x: maq.x, y: maq.y, orientacion: maq.orientacion, material: maq.material}
                         return selMaq;
                     }else{
                         return maq;
@@ -155,7 +187,7 @@ const moverRecurso = (tab,ubicarRecursos) => {
                 case "SELLER":
                     maq.recurso.push(ubicarRecursos.recurso)
                     return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:maq.recurso }
-                default: return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:ubicarRecursos.recurso}
+                default: return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:ubicarRecursos.recurso, material: maq.material}
             }
         }
         return maq
@@ -175,6 +207,8 @@ const maquinas = (state={tablero:[],maquinaSeleccionada:"NO",herramienta:"SELECC
             return aplicarTick(state);
         case 'SELECT_HERRAMIENTA':
             return selectHerramienta(state, action.herramienta);
+        case 'SELECT_MAT':
+            return selectMaterial(state,action.material);
         default: return state;
 
     }
