@@ -80,8 +80,8 @@ const aplicarTick = (state) => {
             case "FURNACE":
                 if(maquina.recurso !== ""){
                     let nRecurso = transformacionRecurso(maquina.recurso);
-                    let newMaquina = {type: maquina.type,x: maquina.x,y: maquina.y, orientacion: maquina.orientacion, recurso: nRecurso};
-                    console.log('Maq con mat fundido ', newMaquina);
+                    ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,nRecurso))
+                    let newMaquina = {type: maquina.type,x: maquina.x,y: maquina.y, orientacion: maquina.orientacion, recurso: ""};
                     return newMaquina;
                 }
                 return maquina;
