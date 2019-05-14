@@ -5,6 +5,7 @@ import cobre from '../assets/cobre.PNG'
 import aluminio from '../assets/aluminio.PNG'
 import carbon from '../assets/carbon.PNG'
 import hierro from '../assets/aluminio.PNG'
+import { precioMaquina } from '../model/maquina';
 
 const renderInfo= (name,costo,frecuencia) => {
         return <div>
@@ -49,15 +50,15 @@ const PanelDetalles = ({tablero,maquinaSeleccionada,onMatClick}) => {
     const displayInfo = (maquina) => {
         switch (maquina){
             case "CRAFTER":
-                return renderInfo(maquina,500,"1/ segundo")
+                return renderInfo(maquina,precioMaquina(maquina),"1/ segundo")
             case "SELLER":
-                return renderInfo(maquina,250,"1/ segundo")
+                return renderInfo(maquina,precioMaquina(maquina),"1/ segundo")
             case "STARTER":
-                return renderInfo(maquina, 150,"1/ segundo")
+                return renderInfo(maquina,precioMaquina(maquina),"1/ segundo")
             case "TRANSPORTER":
-                return renderInfo(maquina,100,"1/ segundo")
+                return renderInfo(maquina,precioMaquina(maquina),"1/ segundo")
             case "FURNACE":
-                return renderInfo(maquina,300,"1/ segundo")
+                return renderInfo(maquina,precioMaquina(maquina),"1/ segundo")
             default:
                 return renderSinInfo()
         }
