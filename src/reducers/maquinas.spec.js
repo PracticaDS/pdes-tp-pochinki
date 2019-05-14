@@ -11,6 +11,7 @@ describe('game reducer', () => {
         console.log(newS);
         expect(newS.maquinaSeleccionada).toEqual("SELLER")
     })
+    
 
     it('should handle put action after select with enough money',() => {
         const state = maquinas(undefined,selectMaquina({tipoMaquina:"SELLER"}));
