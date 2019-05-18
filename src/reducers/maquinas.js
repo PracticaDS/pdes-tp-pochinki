@@ -22,8 +22,9 @@ const selectMaterial = (state,material) => {
 const colocarMaquina = (state,idCelda) => {
     let fila = Math.round(idCelda / 10);
     let columna = Math.round(idCelda % 10)+1;
+    console.log(state.materialSeleccionado);
     if( (state.maquinaSeleccionada === "NO" && state.maquinaSeleccionadaMover === "NO") || state.tablero.some((value,index,array)=> {return value.x === columna && value.y === fila}) || state.dinero < precioMaquina(state.maquinaSeleccionada)){
-        return  state;
+        return state;
     }
     else{
         switch(state.herramienta){
@@ -31,8 +32,12 @@ const colocarMaquina = (state,idCelda) => {
                 if(state.maquinaSeleccionada === "STARTER"){
                     if(state.materialSeleccionado !== "" && state.materialSeleccionado !== "NO" && typeof state.materialSeleccionado !== "undefined"){
                         state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado,material: state.materialSeleccionado});
-                    }     
-                }else if(state.maquinaSeleccionada === "SELLER"){
+                    }else{
+                        let baseState = {tablero: state.tablero,maquinaSeleccionada:"NO",herramienta: "SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: "NO",dinero:state.dinero};
+                        return  baseState;
+                    }
+                }
+                else if(state.maquinaSeleccionada === "SELLER"){
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: []});
                 }
                 else{
