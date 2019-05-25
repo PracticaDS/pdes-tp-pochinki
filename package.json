@@ -4,6 +4,8 @@
   "homepage": "https://PracticaDS.github.io/pdes-tp-pochinki/",
   "private": true,
   "dependencies": {
+    "create-react-app": "^3.0.1",
+    "global": "^4.3.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
@@ -19,8 +21,8 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
-  "husky":{
-    "hooks":{
+  "husky": {
+    "hooks": {
       "pre-push": "CI=true yarn test"
     }
   },

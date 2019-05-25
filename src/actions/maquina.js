@@ -19,3 +19,10 @@ export const selectMaterial = (material) => {
         material
     }
 }
+
+export const selectBlueprint = (blueprint) => {
+    return {
+        type: 'SELECT_BLUE',
+        blueprint
+    }
+}

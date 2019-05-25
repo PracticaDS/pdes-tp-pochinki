@@ -36,10 +36,10 @@ const renderInfoMat = (onMatClick) => {
 }
 
 // ACA HAY QUE AGREGAR UN BOTON PARA SELECCIONAR LA BLUEPRINT
-const renderBlueprints = (blueprints) => {
+const renderBlueprints = (blueprints,onSelectBlueprint) => {
     return <div className="panelBlue">
         { blueprints.map(function(item) {
-                return <div key={item} className="infoText">
+                return <div key={item} className="infoText" onClick={() => onSelectBlueprint([item.ingrediente1,item.ingrediente2])}>
                     <p>{item.nombre}</p>
                     <p>{item.ingrediente1}</p>
                     <p>{item.ingrediente2}</p> 
@@ -49,7 +49,7 @@ const renderBlueprints = (blueprints) => {
     </div>
 }
 
-const PanelDetalles = ({tablero,maquinaSeleccionada,blueprints,onMatClick}) => {
+const PanelDetalles = ({tablero,maquinaSeleccionada,blueprints,onMatClick,onSelectBlueprint}) => {
 
     const displayInfoSt= (maquina) => {
         switch(maquina){
@@ -63,7 +63,7 @@ const PanelDetalles = ({tablero,maquinaSeleccionada,blueprints,onMatClick}) => {
     const displayBluePrints = (maquina) => {
         switch(maquina){
             case "CRAFTER":
-                return renderBlueprints(blueprints)
+                return renderBlueprints(blueprints,onSelectBlueprint)
             default:
                 return <div></div>
         }

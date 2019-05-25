@@ -17,6 +17,11 @@ const selectMaterial = (state,material) => {
     return newState;
 }
 
+const selectBlueprint = (state,bluePrint) => {
+    let newState = {...state, bluePrintSeleccionada: bluePrint}
+    return newState
+}
+
 //COlORCAR CRAFTER CON BLUEPRINT (SIMIL STARTER)
 //AGREGAR CAMPO BLUEPRINT EN MAQUINA CUANDO ES CRAFTER
 const colocarMaquina = (state,idCelda) => {
@@ -34,6 +39,9 @@ const colocarMaquina = (state,idCelda) => {
                     }     
                 }else if(state.maquinaSeleccionada === "SELLER"){
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: []});
+                }
+                else if(state.maquinaSeleccionada === "CRAFTER"){
+                    state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: [], bluePrint: state.bluePrintSeleccionada});
                 }
                 else{
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: ""});
@@ -61,24 +69,30 @@ const aplicarTick = (state) => {
         switch (maquina.type){
             case "STARTER":
                 let nRecurso = maquina.recurso !== "" ? "" : maquina.material;
-                let newMaquina = {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:nRecurso, material: maquina.material};
+                let newMaquina = {...maquina,recurso:nRecurso, material: maquina.material};
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
                     maquina.recurso = "";
                 } 
                 return newMaquina;
+            case "CRAFTER":
+                if(maquina.recurso === maquina.bluePrint){
+                    ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
+                    return {...maquina,orientacion: maquina.orientacion,recurso:[],blueprint: state.bluePrintSeleccionada}
+                }
+                return maquina;
             case "SELLER":
                 if(maquina.recurso !== ""){
                     maquina.recurso.forEach((rec) =>{
                         sumaDinero += valorDeProducto(rec);
                     })
-                    return {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:[]}
+                    return {...maquina,recurso:[]}
                 }
                 return maquina
             default: 
                 if(maquina.recurso !== ""){
                     ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
-                    return {type: maquina.type,x: maquina.x,y:maquina.y, orientacion: maquina.orientacion,recurso:""}
+                    return {...maquina,recurso:""}
                 }
                 return maquina
         }
@@ -199,6 +213,8 @@ const maquinas = (state={tablero:[],maquinaSeleccionada:"NO",herramienta:"SELECC
             return selectHerramienta(state, action.herramienta);
         case 'SELECT_MAT':
             return selectMaterial(state,action.material);
+        case 'SELECT_BLUE':
+            return selectBlueprint(state,action.blueprint)
         default: return state;
 
     }

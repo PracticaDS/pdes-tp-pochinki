@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import PanelDetalles from '../components/PanelDetalles';
-import {selectMaterial} from '../actions/maquina'
+import {selectMaterial, selectBlueprint} from '../actions/maquina'
 import { blueprints } from '../model/maquina';
 
 const mapStateToProps = (state) => (
@@ -16,7 +16,8 @@ const mapStateToProps = (state) => (
 
 const mapActionsToProps = (dispatch) => {
   return{
-      onMatClick: material => dispatch(selectMaterial(material))
+      onMatClick: material => dispatch(selectMaterial(material)),
+      onSelectBlueprint : blueprint => dispatch(selectBlueprint(blueprint))
   };    
 };
 
