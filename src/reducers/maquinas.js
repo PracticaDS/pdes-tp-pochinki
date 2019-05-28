@@ -83,7 +83,7 @@ const aplicarTick = (state) => {
                     let recursosBlue = maquina.recurso.filter( rec => rec === maquina.bluePrint.recursos[0] || rec === maquina.bluePrint.recursos[1] );
                     if(recursosBlue.length >= maquina.bluePrint.recursos.length){
                         let hash = [...new Set(maquina.recurso)];
-                        hash.forEach((v,i) => maquina.recurso.indexOf(v) != maquina.recurso.lastIndexOf(v) ? maquina.recurso.splice(maquina.recurso.indexOf(v), 1) : null);
+                        hash.forEach((v,i) => maquina.recurso.indexOf(v) !== maquina.recurso.lastIndexOf(v) ? maquina.recurso.splice(maquina.recurso.indexOf(v), 1) : null);
                         console.log('hash de recursos ', maquina.recurso);
                         ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso));
                         return {...maquina,orientacion: maquina.orientacion,recurso:[],blueprint: state.bluePrintSeleccionada, producto: maquina.bluePrint.producto}
