@@ -75,11 +75,21 @@ const aplicarTick = (state) => {
                     maquina.recurso = "";
                 } 
                 return newMaquina;
-            case "CRAFTER":
-                if(maquina.recurso === maquina.bluePrint){
-                    ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso))
-                    return {...maquina,orientacion: maquina.orientacion,recurso:[],blueprint: state.bluePrintSeleccionada}
+            case "CRAFTER": //se podria optimizar utilizando sets
+                console.log('recurso pre crafter ',maquina.recurso);
+                console.log('blueprint ', maquina.bluePrint.recursos);
+                if(maquina.bluePrint !== "" || typeof maquina.bluePrint !== undefined){
+                    //esta hardcodeado que son 2 recursos por blueprint
+                    let recursosBlue = maquina.recurso.filter( rec => rec === maquina.bluePrint.recursos[0] || rec === maquina.bluePrint.recursos[1] );
+                    if(recursosBlue.length >= maquina.bluePrint.recursos.length){
+                        let hash = [...new Set(maquina.recurso)];
+                        hash.forEach((v,i) => maquina.recurso.indexOf(v) != maquina.recurso.lastIndexOf(v) ? maquina.recurso.splice(maquina.recurso.indexOf(v), 1) : null);
+                        console.log('hash de recursos ', maquina.recurso);
+                        ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso));
+                        return {...maquina,orientacion: maquina.orientacion,recurso:[],blueprint: state.bluePrintSeleccionada, producto: maquina.bluePrint.producto}
+                    }
                 }
+                
                 return maquina;
             case "SELLER":
                 if(maquina.recurso !== ""){
@@ -87,6 +97,10 @@ const aplicarTick = (state) => {
                         sumaDinero += valorDeProducto(rec);
                     })
                     return {...maquina,recurso:[]}
+                }
+                if(maquina.producto !== "" && typeof maquina.producto !== undefined){
+                    sumaDinero += valorDeProducto(maquina.producto);
+                    return {...maquina, producto: ""}
                 }
                 return maquina
             default: 
@@ -191,6 +205,9 @@ const moverRecurso = (tab,ubicarRecursos) => {
                 case "SELLER":
                     maq.recurso.push(ubicarRecursos.recurso)
                     return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:maq.recurso }
+                case "CRAFTER":
+                    maq.recurso.push(ubicarRecursos.recurso)
+                    return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:maq.recurso, bluePrint: maq.bluePrint }
                 default: return {type: maq.type,x: maq.x,y:maq.y, orientacion: maq.orientacion,recurso:ubicarRecursos.recurso, material: maq.material}
             }
         }

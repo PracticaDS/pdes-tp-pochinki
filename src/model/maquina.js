@@ -71,5 +71,6 @@ export const rotar = (orientation) => {
 export const blueprints = () => {
     return [{nombre:"Blueprint Horno",ingrediente1:"HIERRO",ingrediente2:"CARBON",resultado:"HORNO"},
     {nombre:"Blueprint Anillo",ingrediente1:"ORO FUNDIDO",ingrediente2:"ORO FUNDIDO",resultado:"ANILLO DE ORO"},
-    {nombre:"Blueprint TV", ingrediente1:"COBRE", ingrediente2:"ALUMINIO",resultado:"TV"}]
+    {nombre:"Blueprint TV", ingrediente1:"COBRE", ingrediente2:"ALUMINIO",resultado:"TV"},
+    {nombre:"Blueprint Barra", ingrediente1:"HIERRO", ingrediente2:"HIERRO",resultado:"BARRA"}]
 }

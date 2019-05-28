@@ -38,7 +38,7 @@
 .panelMats {
     background-color: blueviolet;
     height: 280px;
-    width: 180px;
+    width: 140px;
     margin-left: 40px;
     margin-right: 20px;
     padding: 4px;
@@ -57,5 +57,27 @@
 }
 
 .botonMat:hover {
+    border: 1px solid orange;
+}
+
+.panelBlue {
+    background-color: blueviolet;
+    height: 340px;
+    width: 140px;
+    margin-left: 40px;
+    margin-right: 20px;
+    padding: 4px;
+    border: 1px solid rgb(179, 214, 214);
+    border-radius: 4px;
+    
+}
+
+.botonBlue{
+    float:left;
+    height: 30px;
+    width: 30px;
+}
+
+.botonBlue:hover{
     border: 1px solid orange;
 }

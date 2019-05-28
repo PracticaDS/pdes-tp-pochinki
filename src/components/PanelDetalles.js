@@ -5,6 +5,7 @@ import cobre from '../assets/cobre.PNG'
 import aluminio from '../assets/aluminio.PNG'
 import carbon from '../assets/carbon.PNG'
 import hierro from '../assets/aluminio.PNG'
+import blue from '../assets/blueprint.PNG'
 
 const renderInfo= (name,costo,frecuencia) => {
         return <div>
@@ -39,11 +40,14 @@ const renderInfoMat = (onMatClick) => {
 const renderBlueprints = (blueprints,onSelectBlueprint) => {
     return <div className="panelBlue">
         { blueprints.map(function(item) {
-                return <div key={item} className="infoText" onClick={() => onSelectBlueprint([item.ingrediente1,item.ingrediente2])}>
-                    <p>{item.nombre}</p>
-                    <p>{item.ingrediente1}</p>
-                    <p>{item.ingrediente2}</p> 
-                 </div>
+                return <div key={item}>
+                        <img src={blue} alt="blueBot" className="botonBlue" onClick={() => onSelectBlueprint( {recursos: [item.ingrediente1,item.ingrediente2], producto: item.resultado} )}/>
+                            <p className="infoBlue">{item.nombre}</p>
+                            <ul className="listaBlue">
+                                <li>{item.ingrediente1}</li>
+                                <li>{item.ingrediente2}</li>
+                            </ul>
+                        </div>
             })
         }
     </div>
