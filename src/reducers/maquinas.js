@@ -41,7 +41,7 @@ const colocarMaquina = (state,idCelda) => {
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: []});
                 }
                 else if(state.maquinaSeleccionada === "CRAFTER"){
-                    state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: [], bluePrint: state.bluePrintSeleccionada});
+                    state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: [], bluePrint: state.bluePrintSeleccionada,producto: ''});
                 }
                 else{
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: ""});
@@ -84,13 +84,18 @@ const aplicarTick = (state) => {
                     if(recursosBlue.length >= maquina.bluePrint.recursos.length){
                         let hash = [...new Set(maquina.recurso)];
                         hash.forEach((v,i) => maquina.recurso.indexOf(v) !== maquina.recurso.lastIndexOf(v) ? maquina.recurso.splice(maquina.recurso.indexOf(v), 1) : null);
-                        console.log('hash de recursos ', maquina.recurso);
-                        ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.recurso));
+                        console.log('hash de recursos ', maquina.bluePrint.producto);
                         return {...maquina,orientacion: maquina.orientacion,recurso:[],blueprint: state.bluePrintSeleccionada, producto: maquina.bluePrint.producto}
                     }
+                    if(maquina.producto !== null){
+                        ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.bluePrint.producto));
+                        return {...maquina,producto:null};
+                    }
+                    
+
                 }
-                
                 return maquina;
+
             case "SELLER":
                 if(maquina.recurso !== ""){
                     maquina.recurso.forEach((rec) =>{
@@ -116,7 +121,7 @@ const aplicarTick = (state) => {
             newTab = moverRecurso(newTab,ubicarRecursos[i])
         }
     };
-    return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: state.herramienta,orientacionSeleccionada: state.orientacionSeleccionada,materialSeleccionado: state.materialSeleccionado, dinero: state.dinero + sumaDinero}
+    return {...state,tablero: newTab, dinero: state.dinero + sumaDinero}
 }
 
 
