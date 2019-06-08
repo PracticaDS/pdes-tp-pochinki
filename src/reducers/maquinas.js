@@ -2,6 +2,7 @@
 import { defUbicacion, precioMaquina, valorDeProducto, transformacionRecurso} from '../model/maquina';
 
 
+
 const selectMaquina = (state,tipoMaquina) => {
     let newState = {tablero: state.tablero,maquinaSeleccionada:tipoMaquina,herramienta: "SELECCIONAR", orientacionSeleccionada: "NO",dinero: state.dinero};
     return  newState;
@@ -21,19 +22,22 @@ const selectMaterial = (state,material) => {
 const colocarMaquina = (state,idCelda) => {
     let fila = Math.round(idCelda / 10);
     let columna = Math.round(idCelda % 10)+1;
-    if(state.maquinaSeleccionada === "NO" || state.tablero.some((value,index,array)=> {return value.x === columna && value.y === fila}) || state.dinero < precioMaquina(state.maquinaSeleccionada)){
-        return  state;
+    console.log(state.materialSeleccionado);
+    if( (state.maquinaSeleccionada === "NO" && state.maquinaSeleccionadaMover === "NO") || state.tablero.some((value,index,array)=> {return value.x === columna && value.y === fila}) || state.dinero < precioMaquina(state.maquinaSeleccionada)){
+        return state;
     }
     else{
-        console.log('Llego al switch colocar maquina', state.maquinaSeleccionada);
-        console.log('Llego al switch colocar maquina', state.herramienta);
         switch(state.herramienta){
             case "SELECCIONAR":
                 if(state.maquinaSeleccionada === "STARTER"){
                     if(state.materialSeleccionado !== "" && state.materialSeleccionado !== "NO" && typeof state.materialSeleccionado !== "undefined"){
                         state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: state.materialSeleccionado,material: state.materialSeleccionado});
-                    }     
-                }else if(state.maquinaSeleccionada === "SELLER"){
+                    }else{
+                        let baseState = {tablero: state.tablero,maquinaSeleccionada:"NO",herramienta: "SELECCIONAR", orientacionSeleccionada: "NO", materialSeleccionado: "NO",dinero:state.dinero};
+                        return  baseState;
+                    }
+                }
+                else if(state.maquinaSeleccionada === "SELLER"){
                     state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: "abajo", recurso: []});
                 }
                 else{
@@ -44,8 +48,8 @@ const colocarMaquina = (state,idCelda) => {
                 return newStateS; 
             
             case "MOVER":
-                state.tablero.push({type: state.maquinaSeleccionada,x: columna,y: fila, orientacion: state.orientacionSeleccionada, recurso: ""});
-                let newStateM = {tablero: state.tablero, maquinaSeleccionada: "NO",herramienta:"MOVER", orientacionSeleccionada: "abajo",dinero: state.dinero}
+                state.tablero.push({type: state.maquinaSeleccionadaMover,x: columna,y: fila, orientacion: state.orientacionSeleccionada, recurso: state.materialSeleccionadoMover,material: state.materialSeleccionado});
+                let newStateM = {tablero: state.tablero, maquinaSeleccionada: state.maquinaSeleccionada,herramienta:"MOVER", orientacionSeleccionada: "abajo",dinero: state.dinero, maquinaSeleccionadaMover: "NO", materialSeleccionadoMover: "NO"}
                 console.log(newStateM);
                 return newStateM;
             default: return state
@@ -98,7 +102,7 @@ const aplicarTick = (state) => {
             newTab = moverRecurso(newTab,ubicarRecursos[i])
         }
     };
-    return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: state.herramienta,orientacionSeleccionada: state.orientacionSeleccionada,materialSeleccionado: state.materialSeleccionado, dinero: state.dinero + sumaDinero}
+    return {tablero: newTab,maquinaSeleccionada:state.maquinaSeleccionada,herramienta: state.herramienta,orientacionSeleccionada: state.orientacionSeleccionada,materialSeleccionado: state.materialSeleccionado, dinero: state.dinero + sumaDinero, maquinaSeleccionadaMover: state.maquinaSeleccionadaMover, materialSeleccionadoMover: state.materialSeleccionadoMover}
 }
 
 
@@ -138,8 +142,8 @@ const edicion = (state, idCelda) => {
                 }
             })
             return {tablero: newTab,maquinaSeleccionada:"NO",herramienta: state.herramienta, orientacionSeleccionada: "NO",dinero:state.dinero}
-        case "MOVER": //estoy eliminando y reemplazando habria que quizas guardar en el store la orientacion por ahora 
-            if(state.maquinaSeleccionada === "NO"){
+        case "MOVER":
+            if(state.maquinaSeleccionadaMover === "NO" || typeof state.maquinaSeleccionadaMover === "undefined"){
                 let selectMaq = state.tablero.map( (maq) => {
                     if(maq.x === columna && maq.y === fila){
                         let selMaq = {type: maq.type, x: maq.x, y: maq.y, orientacion: maq.orientacion, material: maq.material}
@@ -150,10 +154,10 @@ const edicion = (state, idCelda) => {
                 })
                 
                 let filterd = state.tablero.filter( (value,index,array) => {
-                    return (value.x !== columna && value.y !== fila)
+                    return (value.x !== columna || value.y !== fila)
                 })
-                let newState = {tablero: filterd, maquinaSeleccionada: selectMaq[0].type, herramienta: state.herramienta, orientacionSeleccionada: selectMaq[0].orientacion,dinero: state.dinero}
-                console.log('nuevo estado ', newState);
+
+                let newState = {tablero: filterd, maquinaSeleccionada: state.maquinaSeleccionada, herramienta: state.herramienta, orientacionSeleccionada: selectMaq[0].orientacion, dinero: state.dinero, maquinaSeleccionadaMover: selectMaq[0].type, materialSeleccionadoMover: selectMaq[0].material}
               return newState;
             }else {
                 return colocarMaquina(state, idCelda);
