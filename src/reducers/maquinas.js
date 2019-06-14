@@ -81,11 +81,27 @@ const aplicarTick = (state) => {
                 if(maquina.bluePrint !== "" || typeof maquina.bluePrint !== undefined){
                     //esta hardcodeado que son 2 recursos por blueprint
                     let recursosBlue = maquina.recurso.filter( rec => rec === maquina.bluePrint.recursos[0] || rec === maquina.bluePrint.recursos[1] );
+                    console.log('recursos filt ', recursosBlue);
                     if(recursosBlue.length >= maquina.bluePrint.recursos.length){
-                        let hash = [...new Set(maquina.recurso)];
-                        hash.forEach((v,i) => maquina.recurso.indexOf(v) !== maquina.recurso.lastIndexOf(v) ? maquina.recurso.splice(maquina.recurso.indexOf(v), 1) : null);
+                        console.log('ENTROOOO');
+                        // let hash = [...new Set(maquina.recurso)];
+                        // maquina.recurso.forEach((v,i) => maquina.recurso.indexOf(v) !== maquina.recurso.lastIndexOf(v) ? maquina.recurso.splice(maquina.recurso.indexOf(v), 1) : null);
+                        let recEliminados = [];
+                        for( var i = 0; i < maquina.recurso.length; i++){
+                            if(recEliminados < maquina.bluePrint.recursos.length){
+                                if(maquina.recurso[i] === maquina.bluePrint.recursos[0] || maquina.recurso[i] === maquina.bluePrint.recursos[1] ){
+                                    recEliminados.push(maquina.recurso[i])
+                                    maquina.recurso.splice(i, 1);
+                                    console.log('contador elims ', recEliminados);
+                                }
+                            }
+                            console.log('lista elims ', recEliminados);
+                        }
+                        recEliminados = [];
+                        //console.log('hash ', hash);
+                        console.log('hash ', maquina.recurso);
                         console.log('hash de recursos ', maquina.bluePrint.producto);
-                        return {...maquina,orientacion: maquina.orientacion,recurso:[],blueprint: state.bluePrintSeleccionada, producto: maquina.bluePrint.producto}
+                        return {...maquina,orientacion: maquina.orientacion,recurso:maquina.recurso,blueprint: state.bluePrintSeleccionada, producto: maquina.bluePrint.producto}
                     }
                     if(maquina.producto !== null){
                         ubicarRecursos.push(defUbicacion(maquina.x,maquina.y,maquina.orientacion,maquina.bluePrint.producto));
