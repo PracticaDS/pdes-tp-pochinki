@@ -144,20 +144,15 @@ const edicion = (state, idCelda) => {
             return {tablero: newTab,maquinaSeleccionada:"NO",herramienta: state.herramienta, orientacionSeleccionada: "NO",dinero:state.dinero}
         case "MOVER":
             if(state.maquinaSeleccionadaMover === "NO" || typeof state.maquinaSeleccionadaMover === "undefined"){
-                let selectMaq = state.tablero.map( (maq) => {
-                    if(maq.x === columna && maq.y === fila){
-                        let selMaq = {type: maq.type, x: maq.x, y: maq.y, orientacion: maq.orientacion, material: maq.material}
-                        return selMaq;
-                    }else{
-                        return maq;
-                    }
+                let selectMaq = state.tablero.filter( (maq) => {
+                    return (maq.x === columna && maq.y === fila)
                 })
                 
                 let filterd = state.tablero.filter( (value,index,array) => {
                     return (value.x !== columna || value.y !== fila)
                 })
 
-                let newState = {tablero: filterd, maquinaSeleccionada: state.maquinaSeleccionada, herramienta: state.herramienta, orientacionSeleccionada: selectMaq[0].orientacion, dinero: state.dinero, maquinaSeleccionadaMover: selectMaq[0].type, materialSeleccionadoMover: selectMaq[0].material}
+                let newState = {tablero: filterd, maquinaSeleccionada: state.maquinaSeleccionada, herramienta: state.herramienta, orientacionSeleccionada: selectMaq[0].orientacion, dinero: state.dinero, materialSeleccionadoMover: selectMaq[0].recurso, maquinaSeleccionadaMover: selectMaq[0].type, materialSeleccionado: selectMaq[0].material === undefined ? "" : selectMaq[0].material}
               return newState;
             }else {
                 return colocarMaquina(state, idCelda);
