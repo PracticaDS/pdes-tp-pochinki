@@ -21,27 +21,38 @@ const renderSinInfo = () => {
     return <div><p className="infoText">Seleccione una maquina para ver su detalle</p></div>
 }
 
-const renderInfoMat = (onMatClick) => {
+const renderInfoMat = (materialSeleccionado,onMatClick) => {
     return  <div className="panelMats">
-                <img src={oro} alt="oroBot" className="botonMat" onClick={() => onMatClick("ORO")}/>
-                <p className="infoMat"> Oro </p>
-                <img src={cobre} alt="cobreBot" className="botonMat" onClick={() => onMatClick("COBRE")}/>
-                <p className="infoMat"> Cobre </p>
-                <img src={aluminio} alt="aluminioBot" className="botonMat" onClick={() => onMatClick("ALUMINIO")}/>
-                <p className="infoMat"> Aluminio </p>
-                <img src={carbon} alt="carbonBot" className="botonMat" onClick={() => onMatClick("CARBON")}/>
-                <p className="infoMat"> Carbon </p>
-                <img src={hierro} alt="hierroBot" className="botonMat" onClick={() => onMatClick("HIERRO")}/>
-                <p className="infoMat"> Hierro </p>
+                <div className="material">
+                    <img src={oro} alt="oroBot" className="botonMat" onClick={() => onMatClick("ORO")}/>
+                    <div className={materialSeleccionado === 'ORO' ? 'infoMat seleccionado' : 'infoMat'}> Oro </div>
+                </div>
+                <div className="material">
+                    <img src={cobre} alt="cobreBot" className="botonMat" onClick={() => onMatClick("COBRE")}/>
+                    <div className={materialSeleccionado === 'COBRE' ? 'infoMat seleccionado' : 'infoMat'}> Cobre </div>
+                </div>
+                <div className="material">
+                    <img src={aluminio} alt="aluminioBot" className="botonMat" onClick={() => onMatClick("ALUMINIO")}/>
+                    <div className={materialSeleccionado === 'ALUMINIO' ? 'infoMat seleccionado' : 'infoMat'}> Aluminio </div>
+                </div>
+                <div className="material">
+                    <img src={carbon} alt="carbonBot" className="botonMat" onClick={() => onMatClick("CARBON")}/>
+                    <div className={materialSeleccionado === 'CARBON' ? 'infoMat seleccionado' : 'infoMat'}> Carbon </div>
+                </div>
+                <div className="material">
+                    <img src={hierro} alt="hierroBot" className="botonMat" onClick={() => onMatClick("HIERRO")}/>
+                    <div className={ materialSeleccionado === 'HIERRO' ? 'infoMat seleccionado' : 'infoMat'}> Hierro </div>
+                </div>     
+                
             </div>
 }
 
-const PanelDetalles = ({tablero,maquinaSeleccionada,onMatClick}) => {
+const PanelDetalles = ({materialSeleccionado,maquinaSeleccionada,onMatClick}) => {
 
     const displayInfoSt= (maquina) => {
         switch(maquina){
             case "STARTER":
-                return renderInfoMat(onMatClick)
+                return renderInfoMat(materialSeleccionado,onMatClick)
             default:
                 return <div></div>
         }
