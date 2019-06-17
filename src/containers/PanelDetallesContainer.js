@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import PanelDetalles from '../components/PanelDetalles';
 import {selectMaterial, selectBlueprint} from '../actions/maquina'
 import { blueprints } from '../model/maquina';
+import { withRouter } from 'react-router-dom'
+
 
 const mapStateToProps = (state) => (
      {
@@ -26,4 +28,4 @@ const PanelDetallesContainer = connect(
   mapActionsToProps
 )(PanelDetalles);
 
-export default PanelDetallesContainer;
+export default withRouter(PanelDetallesContainer);

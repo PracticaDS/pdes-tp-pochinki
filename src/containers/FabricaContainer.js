@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
 import Fabrica from '../components/Fabrica';
+import { withRouter } from 'react-router-dom'
+
 
 const mapStateToProps = (state) => (
       
@@ -19,4 +21,4 @@ const FabricaContainer = connect(
   mapActionsToProps
 )(Fabrica);
 
-export default FabricaContainer;
+export default withRouter(FabricaContainer);

@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 
 import {selectMaquina} from '../actions/maquina';
 import SeleccionMaquinas from '../components/SeleccionMaquinas';
+import { withRouter } from 'react-router-dom'
+
 
 const mapStateToProps = (state) => (
       
@@ -23,4 +25,4 @@ const SeleccionMaquinasContainer = connect(
   mapActionsToProps
 )(SeleccionMaquinas);
 
-export default SeleccionMaquinasContainer;
+export default withRouter(SeleccionMaquinasContainer);

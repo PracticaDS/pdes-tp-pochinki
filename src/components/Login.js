@@ -1,7 +1,8 @@
 import React from 'react';
 import './Login.css';
-import {Route,NavLink,HashRouter} from "react-router-dom";
+import {Route,NavLink,HashRouter,Redirect} from "react-router-dom";
 import Fabrica from './Fabrica';
+import history from '../history';
 
 class Login extends React.Component {
     constructor() {
@@ -15,9 +16,12 @@ class Login extends React.Component {
     
     loadUser() {
         fetch('/api/users/auth/' + this.state.inputUser )
-            .then(res => res.json())
-            .then(user => this.setState({user: user}));
-        console.log('user: ',this.state.user);
+            .then(res => 
+                res.json()
+                )
+            .then(user => {
+                history.push({pathname:'/user/'+ user._id})
+            });
     }
 
     handleChange(event) {
@@ -28,6 +32,7 @@ class Login extends React.Component {
     handleSubmit = () => {
         if(this.state.inputUser !== ''){
             this.loadUser();
+            //history.push({pathname:'game'});
             // alert('Bievenido ' + this.state.user.username);
             //chequeo si existe o no y alertas
         }else{
@@ -40,17 +45,14 @@ class Login extends React.Component {
             <div>
                 <h2>Bienvenido a la revolucion industrial!</h2>
                 <HashRouter>
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <span className="form-group">
                         <input type="text" className="inputIn" placeholder="Usuario" value={this.state.inputUser} onChange={(event) => { this.handleChange(event) } } />
                     </span>
-                    <button className="buttonIn">
-                        <NavLink to="/fabricas">Ingresar</NavLink>
+                    <button className="buttonIn" onClick={() => this.handleSubmit()}>
+                        Ingresar
                     </button>
                 </form>
-                <div className="content">
-                    <Route path="/fabricas" component={Fabrica}/>
-                </div>
                 </HashRouter>
             </div>
         );

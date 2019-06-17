@@ -6,6 +6,13 @@ import storeCreator from './storeCreator';
 import { Provider } from 'react-redux';
 //import { selectMaquina, colocarMaquina } from './actions/maquina';
 import {tick} from './actions/start';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Login from './components/Login';
+import history from "./history";
+import InfoUser from './components/InfoUser';
+
+
+
 
 const store = storeCreator();
 //store.dispatch(selectMaquina({tipoMaquina: "STARTER", material: "ORO"}));
@@ -18,7 +25,11 @@ loop();
 
 render(
     <Provider store={store}>
-        <App />
+        <Router history={history}>
+            <Route exact path='/' component={Login}></Route>
+            <Route path='/game' component={App}></Route>
+            <Route path='/user/:username?' component={InfoUser}></Route>
+        </Router>
     </Provider>
 , document.getElementById('root'));
 

@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import Tablero from '../components/Tablero';
 import {colocarMaquina} from '../actions/maquina';
+import { withRouter } from 'react-router-dom'
+
 
 const mapStateToProps = (state) => (
      {
@@ -22,4 +24,4 @@ const TableroContainer = connect(
   mapActionsToProps
 )(Tablero);
 
-export default TableroContainer;
+export default withRouter(TableroContainer);

@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import PanelEdicion from '../components/PanelEdicion';
 import { selectHerramienta } from '../actions/herramienta';
+import { withRouter } from 'react-router-dom'
+
 
 const mapStateToProps = (state) => (
       
@@ -22,4 +24,4 @@ const PanelEdicionContainer = connect(
   mapActionsToProps
 )(PanelEdicion);
 
-export default PanelEdicionContainer;
+export default withRouter(PanelEdicionContainer);
